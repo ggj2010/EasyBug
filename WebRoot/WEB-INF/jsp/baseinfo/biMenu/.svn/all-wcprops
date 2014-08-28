@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/tms/!svn/ver/899/demo/tt/WebRoot/WEB-INF/jsp/baseinfo/biClassRoom
+END
+bi_classroom_add.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/tms/!svn/ver/578/demo/tt/WebRoot/WEB-INF/jsp/baseinfo/biClassRoom/bi_classroom_add.jsp
+END
+bi_classroom_list.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/tms/!svn/ver/899/demo/tt/WebRoot/WEB-INF/jsp/baseinfo/biClassRoom/bi_classroom_list.jsp
+END
+bi_classroom_show.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/tms/!svn/ver/241/demo/tt/WebRoot/WEB-INF/jsp/baseinfo/biClassRoom/bi_classroom_show.jsp
+END
+bi_classroom_update.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/tms/!svn/ver/492/demo/tt/WebRoot/WEB-INF/jsp/baseinfo/biClassRoom/bi_classroom_update.jsp
+END

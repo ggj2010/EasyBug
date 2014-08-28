@@ -1,0 +1,210 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.hejun.student.entity">
+	<class name="StuEnroll" table="stu_enroll">
+	
+		<id name="id" column="id" type="java.lang.String">
+			<generator class="uuid.hex"></generator>
+		</id>
+		<property name="billNO" column="bill_no" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="36">
+		</property>
+		<property name="tmClassStuId" column="tm_class_stu_id" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="32">
+		</property>
+		<property name="status" column="status" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="100">
+		</property>
+		<property name="useStatus" column="use_status" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="100">
+		</property>
+		<property name="feeType" column="fee_type" update="true"
+			insert="true" type="java.lang.String" not-null="true" unique="false"
+			length="16">
+		</property>
+		<property name="feeTypeCount" column="fee_type_count" update="true"
+			insert="true" type="java.lang.Double" not-null="true" unique="false"
+			length="16">
+		</property>
+		<property name="feeTypePrice" column="fee_type_price" update="true"
+			insert="true" type="java.lang.Double" not-null="false" unique="false"
+			length="22">
+		</property>
+		<property name="feeTypeRealPrice" column="fee_type_real_price" update="true"
+			insert="true" type="java.lang.Double" not-null="false" unique="false"
+			length="22">
+		</property>
+		
+		<property name="unitCode" column="unit_code" update="true"
+			insert="true" type="java.lang.String" not-null="true" unique="false"
+			length="16">
+		</property>
+		<property name="unitOncePrice" column="unit_once_price" update="true"
+			insert="true" type="java.lang.Double" not-null="false" unique="false"
+			length="22">
+		</property>
+		<property name="unitOnceRealPrice" column="unit_once_real_price" update="true"
+			insert="true" type="java.lang.Double" not-null="false" unique="false"
+			length="22">
+		</property>
+		<property name="unitCount" column="unit_count" update="true"
+			insert="true" type="java.lang.Integer" not-null="false" unique="false"
+			length="22">
+		</property>
+		<property name="unitHappenCount" column="unit_happen_count" update="true"
+			insert="true" type="java.lang.Integer" not-null="false" unique="false"
+			length="22">
+		</property>
+		<property name="unitRemainCount" column="unit_remain_count" update="true"
+			insert="true" type="java.lang.Integer" not-null="false" unique="false"
+			length="22">
+		</property>
+		<property name="beginDate" column="begin_date" update="true"
+			insert="true" type="java.util.Date" not-null="false" unique="false"
+			length="0">
+		</property>
+		<property name="endDate" column="end_date" update="true"
+			insert="true" type="java.util.Date" not-null="false" unique="false"
+			length="0">
+		</property>
+		
+		<property name="stuChangeClassId" column="stu_change_class_id" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="32">
+		</property>
+		<property name="stuChangeSchoolId" column="stu_change_school_id" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="32">
+		</property>
+		<property name="stuStopId" column="stu_stop_id" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="32">
+		</property>
+		<property name="stuEarnestId" column="stu_earnest_id" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="32">
+		</property>
+		
+		<property name="nextId" column="next_id" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="32">
+		</property>
+		<property name="preId" column="pre_id" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="32">
+		</property>
+		<property name="isNext" column="is_next" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="32">
+		</property>
+		
+		<property name="rollbackDate" column="rollback_date" update="true"
+			insert="true" type="java.util.Date" not-null="false" unique="false" length="0">
+		</property>
+		<many-to-one name="rollbackUser" not-null="false" update="true" lazy="false" insert="true" cascade="none">
+			<column name="rollback_user" />
+		</many-to-one>
+		<property name="rollbackMemo" column="rollback_memo" update="true" insert="true"
+			type="java.lang.String" not-null="false" unique="false" length="200">
+		</property>
+		
+		<property name="enrollDate" column="enroll_date" update="true"
+			insert="true" type="java.util.Date" not-null="false" unique="false"
+			length="0">
+		</property>
+		
+		<property name="lastAttendDate" column="last_attend_date" update="true"
+			insert="true" type="java.util.Date" not-null="false" unique="false"
+			length="0">
+		</property>
+		
+		<many-to-one name="enrollUser" not-null="false" update="true" lazy="false" insert="true" cascade="none">
+			<column name="enroll_user" />
+		</many-to-one>
+		<property name="memo" column="memo" update="true" insert="true"
+			type="java.lang.String" not-null="false" unique="false"
+			length="200">
+		</property>
+		<property name="flag" column="flag" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="10">
+		</property>
+	
+		<property name="isRebate" column="is_rebate" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="1">
+		</property>
+		<property name="payTypeCode" column="pay_type_code" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="100">
+		</property>
+		<property name="shallPay" column="shall_pay" update="true"
+			insert="true" type="java.lang.Double" not-null="false" unique="false"
+			length="22">
+		</property>
+		<property name="happenFee" column="happen_fee" update="true"
+			insert="true" type="java.lang.Double" not-null="false" unique="false"
+			length="22">
+		</property>
+		<property name="realPay" column="real_pay" update="true"
+			insert="true" type="java.lang.Double" not-null="false" unique="false"
+			length="22">
+		</property>
+		<property name="totalRealPay" column="total_real_pay" update="true"
+			insert="true" type="java.lang.Double" not-null="false" unique="false"
+			length="22">
+		</property>
+		<property name="rebateFee" column="rebate_fee" update="true"
+			insert="true" type="java.lang.Double" not-null="false" unique="false"
+			length="22">
+		</property>
+		<property name="ownFee" column="own_fee" update="true"
+			insert="true" type="java.lang.Double" not-null="false" unique="false"
+			length="22">
+		</property>
+		<property name="changeInFee" column="change_in_fee" update="true"
+			insert="true" type="java.lang.Double" not-null="false" unique="false"
+			length="22">
+		</property>
+		<property name="stopInFee" column="stop_in_fee" update="true"
+			insert="true" type="java.lang.Double" not-null="false" unique="false"
+			length="22">
+		</property>
+		<property name="earnestFee" column="earnest_fee" update="true"
+			insert="true" type="java.lang.Double" not-null="false" unique="false"
+			length="22">
+		</property>
+		
+		<property name="useAccountFee" column="use_account_fee" update="true"
+			insert="true" type="java.lang.Double" not-null="false" unique="false"
+			length="22">
+		</property>
+		
+		<property name="isAllowRollback" column="is_allow_rollback" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="100">
+		</property>
+
+		<!-- Many-To-One attributes -->
+		
+		<many-to-one name="biOrgan" not-null="false" update="true" lazy="false" insert="true" cascade="none">
+			<column name="bi_organ" />
+		</many-to-one>
+
+		<many-to-one name="tmClass" not-null="false" update="true" lazy="false" insert="true" cascade="none">
+			<column name="tm_class" />
+		</many-to-one>
+
+		<many-to-one name="stuBaseInfo" not-null="false" update="true" lazy="false" insert="true" cascade="none">
+			<column name="stu_base_info" />
+		</many-to-one>
+
+	
+	</class>
+</hibernate-mapping>

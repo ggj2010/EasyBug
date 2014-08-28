@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.hejun.student.entity">
+	<class name="StuEarnest" table="stu_earnest">
+		<id name="id" column="id" type="java.lang.String">
+			<generator class="uuid.hex">
+			</generator>
+		</id>
+		
+		<property name="realPay" column="real_pay" update="true"
+			insert="true" type="java.lang.Double" not-null="false" unique="false">
+		</property>
+		
+		<property name="refoundFee" column="refound_fee" update="true"
+			insert="true" type="java.lang.Double" not-null="false" unique="false">
+		</property>
+		
+		<property name="isUsed" column="is_used" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="100">
+		</property>
+		
+		<property name="billNO" column="bill_no" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="100">
+		</property>
+		
+		<property name="status" column="status" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="100">
+		</property>
+
+		<many-to-one name="stuBaseInfo" not-null="false" update="true"
+			lazy="false" insert="true" cascade="none">
+			<column name="stu_base_info" />
+		</many-to-one>
+		
+		<many-to-one name="biOrgan" not-null="false" update="true"
+			lazy="false" insert="true" cascade="none">
+			<column name="bi_organ" />
+		</many-to-one>
+		
+		<many-to-one name="tmClass" not-null="false" update="true"
+			lazy="false" insert="true" cascade="none">
+			<column name="tm_class" />
+		</many-to-one>
+		
+		<property name="flag" column="flag" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="255">
+		</property>
+		
+		<property name="memo" column="memo" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="255">
+		</property>
+		
+		<property name="refoundMemo" column="refound_memo" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="255">
+		</property>
+		
+		<property name="rollbackMemo" column="rollback_memo" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="255">
+		</property>
+		
+		<property name="payTypeCode" column="pay_type_code" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="255">
+		</property>
+		
+		<property name="createDate" column="create_date" update="true"
+			insert="true" type="java.util.Date" not-null="false" unique="false"
+			length="0">
+		</property>
+
+		<property name="rollbackDate" column="rollback_date"
+			update="true" insert="true" type="java.util.Date" not-null="false"
+			unique="false" length="0">
+		</property>
+		
+		<property name="refoundDate" column="refound_date"
+			update="true" insert="true" type="java.util.Date" not-null="false"
+			unique="false" length="0">
+		</property>
+		
+		<many-to-one name="rollbackUser" not-null="false" update="true"
+			lazy="false" insert="true" cascade="none">
+			<column name="rollback_user" />
+		</many-to-one>
+		
+		<many-to-one name="refoundUser" not-null="false" update="true"
+			lazy="false" insert="true" cascade="none">
+			<column name="refound_user" />
+		</many-to-one>
+		
+		<many-to-one name="createUser" not-null="false" update="true"
+			lazy="false" insert="true" cascade="none">
+			<column name="create_user" />
+		</many-to-one>
+		
+	</class>
+</hibernate-mapping>
+

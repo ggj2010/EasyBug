@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.gaoguangjin.project.entity">
+	<class name="Project" table="project">
+
+		<id name="id" column="id" type="java.lang.String">
+			<generator class="uuid.hex"></generator>
+		</id>
+		
+		<property name="preId" column="pre_id" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="100">
+		</property>
+		
+		<property name="typeCode" column="type_code" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="100">
+		</property>
+		
+		<property name="depth" column="depth" update="true"
+			insert="true" type="java.lang.Integer" not-null="false" unique="false"
+			length="100">
+		</property>
+		
+		<property name="name" column="name" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="100">
+		</property>
+
+	
+		<property name="flag" column="flag" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="100">
+		</property>
+		
+		<property name="content" column="content" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="100">
+		</property>
+		
+		<property name="codeNumber" column="code_number" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="100">
+		</property>
+		
+		
+		<property name="createDate" column="create_date"
+			update="true" insert="true" type="java.util.Date" not-null="false"
+			unique="false" length="0">
+		</property>
+		
+		<property name="beginDate" column="begin_date"
+			update="true" insert="true" type="java.util.Date" not-null="false"
+			unique="false" length="0">
+		</property>
+		<property name="endDate" column="end_date"
+			update="true" insert="true" type="java.util.Date" not-null="false"
+			unique="false" length="0">
+		</property>
+
+		<!-- Many-To-One attributes -->
+		<many-to-one name="createUser" not-null="false" update="true"  lazy="false"
+			insert="true" cascade="none">
+			<column name="create_user" />
+		</many-to-one>
+		
+		<many-to-one name="managerUser" not-null="false" update="true"  lazy="false"
+			insert="true" cascade="none">
+			<column name="manager_user" />
+		</many-to-one>
+		
+		
+
+	</class>
+</hibernate-mapping>

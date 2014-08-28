@@ -1,0 +1,403 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8" %>
+<%@ include file="/common/tagslib.jsp" %>
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <%@ include file="/common/header.jsp" %>
+        <script src="http://code.jquery.com/jquery-1.7.2.min.js">
+        </script>
+        <script type="text/javascript">
+            var treeObj;
+            
+            $(document).ready(function(){
+                treeObj = window.parent.treeObj;
+                initPage();
+                initTab();
+            });
+            
+            
+            
+            
+            function initPage(){
+                if ("${projectVO.depth}" == "1") {
+                    $("#depth").empty();
+                }
+                
+            }
+            
+            
+            function initTab(){
+                $("#content").find("[id^='tab']").hide(); // Hide all content
+                $("#tabs li:first").attr("id", "current"); // Activate the first tab
+                $("#content #tab1").fadeIn(); // Show first tab's content
+                $('#tabs a').click(function(e){
+                    e.preventDefault();
+                    if ($(this).closest("li").attr("id") == "current") { //detection for current tab
+                        return;
+                    }
+                    else {
+                        $("#content").find("[id^='tab']").hide(); // Hide all content
+                        $("#tabs li").attr("id", ""); //Reset id's
+                        $(this).parent().attr("id", "current"); // Activate this
+                        $('#' + $(this).attr('name')).fadeIn(); // Show content for the current tab
+                    }
+                });
+            }
+            
+            
+            /**
+             * 功能：添加项目
+             * @param {Object} id
+             */
+            function addProject(id){
+                winload("${path}/project/add/view.do?id=" + id);
+                parent.initProjectTree();
+            }
+            
+            /**
+             * 功能：更新项目
+             * @param {Object} id
+             */
+            function updateProject(id){
+                winload("${path}/project/update/view.do?id=" + id);
+                parent.initProjectTree();
+            }
+            
+            /**
+             * 功能：删除机构
+             * @param {Object} id
+             */
+            function deleteProject(){
+                if (confirm("确认要删除吗?")) {
+					return true;
+                   // winload("${path}/project/delete.do?id=" + id);
+                    //parent.initProjectTree();
+                }
+				return false
+            }
+            
+            function delJobEmployee(id){
+                if (confirm("确认要删除吗?")) {
+                    winload("${path}/project/addRole/delete.do?id=" + id);
+                    parent.initProjectTree();
+                }
+            }
+            
+            function addUserRole(id){
+                winload("${path}/main/biOrgan/addRole/view.do?id=" + id);
+            }
+        </script>
+        <style type="text/css">	
+            #tabs {
+                overflow: hidden;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
+            
+            #tabs li {
+                float: left;
+                margin: 0 .5em 0 0;
+            }
+            
+            #tabs a {
+                position: relative;
+                background: #ddd;
+                background-image: linear-gradient(to bottom, #fff, #ddd);  
+              padding: .7em 3.5em;
+              float: left;
+              text-decoration: none;
+              color: #444;
+              text-shadow: 0 1px 0 rgba(255,255,255,.8);
+              border-radius: 5px 0 0 0;
+              box-shadow: 0 2px 2px rgba(0,0,0,.4);
+            }
+            
+            #tabs a:hover,
+            #tabs a:hover::after,
+            #tabs a:focus,
+            #tabs a:focus::after {
+              background: #fff;
+            }
+            
+            #tabs a:focus {
+              outline: 0;
+            }
+            
+            #tabs a::after {
+              content:'';
+              position:absolute;
+              z-index: 1;
+              top: 0;
+              right: -.5em;  
+              bottom: 0;
+              width: 1em;
+              background: #ddd;
+              background-image: linear-gradient(to bottom, #fff, #ddd);  
+              box-shadow: 2px 2px 2px rgba(0,0,0,.4);
+              transform: skew(10deg);
+              border-radius: 0 5px 0 0;  
+            }
+            
+            #tabs #current a,
+            #tabs #current a::after {
+              background: #fff;
+              z-index: 3;
+            }
+            
+            
+            	
+        </style>
+    </head>
+    <body style="background:white ">
+        <input type="hidden" id="idHid" value="${biMenu.id}" />
+        <div id="frame-div" class="width-p100">
+            <div class="title">
+                <table class="title-tb" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td class="td-left">
+                        </td>
+                        <td class="td-title">
+                            <fmt:message key="biOrgan.table_title" /><fmt:message key="btn.view"/>
+                        </td>
+                        <td class="td-btn">
+                            <c:choose>
+                                <c:when test="${projectVO.depth==1}">
+                                    <a class="btn btn-default "href="javaScript:addProject('${projectVO.id}')">新增项目</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a class="btn btn-default" href="javaScript:updateProject('${projectVO.id}')">修改</a>
+                                    <a class="btn btn-default" href="${path}/project/delete.do?id=${projectVO.id}" target="_top" onclick="return deleteProject()" >删除</a>
+                                    <a class="btn btn-default" href="javaScript:addUserRole('${biOrgan.id}')">添加人员</a>
+                                    <a class="btn btn-default" href="javaScript:addUserRole('${biOrgan.id}')">添加版本</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td class="td-right">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="margin-lr-1 main-page-40 over-flow-x-hidden" id="depth">
+                <table class="add-tb">
+                    <tr>
+                        <td class="td-title" colspan="4">
+                            <font size=2 color="black">
+                                <i class="icon icon-chevron-down"></i>
+                                <strong>项目信息</strong>&nbsp;&nbsp;&nbsp; 
+                            </font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="ltd4">
+                          	 项目名称
+                        </td>
+                        <td class="rtd4">
+                        	${projectVO.project.name}
+                        </td>
+                        <td class="ltd4">
+                          	 项目代号
+                        </td>
+                        <td class="rtd4">
+                           ${projectVO.project.codeNumber}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="ltd4">
+                         	  项目周期
+                        </td>
+                        <td class="rtd4">
+                        	 (${projectVO.project.beginDateString}-- ${projectVO.project.endDateString})
+                        </td>
+                        <td class="ltd4">
+                          	项目负责人
+                        </td>
+                        <td class="rtd4">
+                         <abbr title="Name">N:</abbr><strong> ${projectVO.project.managerUser.name}</strong><br>
+						   <abbr title="Phone">P:</abbr> ${projectVO.project.managerUser.phone}  
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <ul id="tabs">
+                                <li>
+                                    <a href="#" name="tab1">人员信息</a>
+                                </li>
+                                <li>
+                                    <a href="#" name="tab2">版本信息</a>
+                                </li>
+                                <li>
+                                    <a href="#" name="tab3">模块信息</a>
+                                </li>
+                            </ul>
+							
+                        </td>
+						
+						 <td class="ltd4">
+                          	项目描述
+                        </td>
+                        <td class="rtd4">
+							<abbr title="${projectVO.project.content}">  <c:out value="${fn:substring('${projectVO.project.content}',2,5)}"/><br> 
+						</td>
+						
+						
+                    </tr>
+                </table>
+				
+                <div id="content">
+                	
+                <div id="tab1">
+                    <table class="add-tb">
+                        <tr>
+                            <td class="td-title">
+                                <font size=2 color="black">
+                                    <i class=" icon-chevron-down"></i>
+                                    <strong>项目人员</strong>&nbsp;&nbsp;&nbsp; 
+                                </font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="rtd4" colspan="4">
+                                <div class="margin-lr-1">
+                                <c:if test='${fn:length(projectVO.userList)<1}'>
+                                    <div class="no-data-div">
+                                        	项目木有添加人员╮(╯▽╰)╭
+                                    </div>
+                                </c:if>
+							 	<c:if test='${fn:length(projectVO.userList)>0}'>
+							 		<c:if test='${fn:length(projectVO.userList)>0}'>
+		                                <table  class="list-tb width-p100 table table-hover">
+		                                        <tr>
+		                                            <th></th>
+		                                            <th>用户</th>
+		                                            <th> 角色</th>
+		                                            <th>加盟日</th>
+		                                            <th><fmt:message key="list.columns.do" /></th>
+		                                        </tr>
+                                                <c:forEach var="item" items='${projectVO.userList}' varStatus="s">
+                                                    <tr>
+                                                      	<td>${s.index+1}</td>
+			                                            <td>${item.name}</td>
+			                                            <td>${item.job}</td>
+														<td>${item.createDateString} </td>
+														<td>
+														  <a class="btn btn-default btn-lg " href="${path}/biUserInfo/delete.do?id=${item.id}"><span class="glyphicon glyphicon-trash"></span><fmt:message key="btn.del"/></a>
+														</td>
+                                                    </tr>
+                                                </c:forEach>
+		                                </table>
+									</c:if>
+								</c:if>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                	
+               
+                <div id="tab2">
+                    <table class="add-tb">
+                        <tr>
+                            <td class="td-title">
+                                <font size=2 color="black">
+                                    <i class=" icon-chevron-down"></i>
+                                    <strong>项目版本</strong>&nbsp;&nbsp;&nbsp; 
+                                </font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="rtd4" colspan="4">
+                                <div class="margin-lr-1">
+                                <c:if test='${fn:length(projectVO.versionList)<1}'>
+                                    <div class="no-data-div">
+                                        	项目木有添加版本╮(╯▽╰)╭
+                                    </div>
+                                </c:if>
+							 	<c:if test='${fn:length(projectVO.versionList)>0}'>
+							 		<c:if test='${fn:length(projectVO.versionList)>0}'>
+		                                <table  class="list-tb width-p100 table table-hover">
+		                                        <tr>
+		                                            <th></th>
+		                                            <th>版本</th>
+		                                            <th><fmt:message key="list.columns.do" /></th>
+		                                        </tr>
+                                                <c:forEach var="item" items='${projectVO.versionList}' varStatus="s">
+                                                    <tr>
+                                                      	<td>${s.index+1}</td>
+			                                            <td>${item.name}</td>
+														<td>
+														   <a class="btn btn-default btn-lg " href="#"><span class="glyphicon glyphicon-wrench"></span><fmt:message key="btn.edit"/></a>
+														  &nbsp;&nbsp;&nbsp;
+														  <a class="btn btn-default btn-lg " href="#"><span class="glyphicon glyphicon-trash"></span><fmt:message key="btn.del"/></a>
+														</td>
+                                                    </tr>
+                                                </c:forEach>
+		                                </table>
+									</c:if>
+								</c:if>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                	
+               
+                <div id="tab3">
+                    <table class="add-tb">
+                        <tr>
+                            <td class="td-title">
+                                <font size=2 color="black">
+                                    <i class=" icon-chevron-down"></i>
+                                    <strong>项目模块</strong>&nbsp;&nbsp;&nbsp; 
+                                </font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="rtd4" colspan="4">
+                                <div class="margin-lr-1">
+                                <c:if test='${fn:length(projectVO.moduleList)<1}'>
+                                    <div class="no-data-div">
+                                        	项目木有添加模块╮(╯▽╰)╭
+                                    </div>
+                                </c:if>
+							 	<c:if test='${fn:length(projectVO.moduleList)>0}'>
+							 		<c:if test='${fn:length(projectVO.moduleList)>0}'>
+		                                <table  class="list-tb width-p100 table table-hover">
+		                                        <tr>
+		                                            <th></th>
+		                                            <th>模块</th>
+		                                            <th>处理人</th>
+		                                            <th><fmt:message key="list.columns.do" /></th>
+		                                        </tr>
+                                                <c:forEach var="item" items='${projectVO.moduleList}' varStatus="s">
+                                                    <tr id="${item.id}_module">
+                                                      	<td>${s.index+1}</td>
+			                                            <td>${item.name}</td>
+			                                            <td id="${item.id}_dealUser">${item.dealUser}</td>
+														<td>
+														  <a class="btn btn-default btn-lg " href="#"><span class="glyphicon glyphicon-wrench"></span><fmt:message key="btn.edit"/></a>
+														  &nbsp;&nbsp;&nbsp;
+														  <a class="btn btn-default btn-lg " href="#"><span class="glyphicon glyphicon-trash"></span><fmt:message key="btn.del"/></a>
+														</td>
+                                                    </tr>
+                                                </c:forEach>
+		                                </table>
+									</c:if>
+								</c:if>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                	
+               
+					
+                   
+					
+                </div>
+				
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.gaoguangjin.bug.entity">
+	<class name="BugContent" table="bug_content">
+
+		<id name="id" column="id" type="java.lang.String">
+			<generator class="uuid.hex"></generator>
+		</id>
+		
+		<property name="name" column="name" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="100">
+		</property>
+
+		<property name="flag" column="flag" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="100">
+		</property>
+	
+        <property name="level" column="level" update="true"
+	         insert="true" type="java.lang.String" not-null="false" unique="false"
+	         length="100">
+        </property>
+		
+        <property name="describe" column="describes" update="true"
+	         insert="true" type="text" not-null="false" unique="false" 
+	         >
+        </property>
+		
+        <property name="status" column="status" update="true"
+	         insert="true" type="java.lang.String" not-null="false" unique="false"
+	         length="100">
+        </property>
+		
+        <property name="isOpen" column="is_open" update="true"
+	         insert="true" type="java.lang.String" not-null="false" unique="false"
+	         length="100">
+        </property>
+		
+        <property name="isReopen" column="is_Reopen" update="true"
+	         insert="true" type="java.lang.String" not-null="false" unique="false"
+	         length="100">
+        </property>
+		
+        <property name="isClosed" column="is_closed" update="true"
+	         insert="true" type="java.lang.String" not-null="false" unique="false"
+	         length="100">
+        </property>
+		
+        <property name="isSolved" column="is_solved" update="true"
+	         insert="true" type="java.lang.String" not-null="false" unique="false"
+	         length="100">
+        </property>
+		
+        <property name="month" column="month" update="true"
+	         insert="true" type="java.lang.String" not-null="false" unique="false"
+	         length="100">
+        </property>
+		
+		
+		<property name="updateDate" column="update_date"
+			update="true" insert="true" type="java.util.Date" not-null="false"
+			unique="false" length="0">
+		</property>
+		
+		<property name="createDate" column="create_date"
+			update="true" insert="true" type="java.util.Date" not-null="false"
+			unique="false" length="0">
+		</property>
+		
+		<!-- Many-To-One attributes -->
+		<many-to-one name="createUser" not-null="false" update="true"  lazy="false"
+			insert="true" cascade="none">
+			<column name="create_user" />
+		</many-to-one>
+		
+		<many-to-one name="updateUser" not-null="false" update="true"  lazy="false"
+			insert="true" cascade="none">
+			<column name="update_user" />
+		</many-to-one>
+		
+		<many-to-one name="userAssigner" not-null="false" update="true"  lazy="false"
+			insert="true" cascade="none">
+			<column name="user_assigner" />
+		</many-to-one>
+		
+		<many-to-one name="userHandler" not-null="false" update="true"  lazy="false"
+			insert="true" cascade="none">
+			<column name="user_handler" />
+		</many-to-one>
+		
+		<many-to-one name="projectModule" not-null="false" update="true"  lazy="false"
+			insert="true" cascade="none">
+			<column name="project_module" />
+		</many-to-one>
+		
+		<many-to-one name="projectVersion" not-null="false" update="true"  lazy="false"
+			insert="true" cascade="none">
+			<column name="project_version" />
+		</many-to-one>
+		
+		<many-to-one name="project" not-null="false" update="true"  lazy="false"
+			insert="true" cascade="none">
+			<column name="project" />
+		</many-to-one>
+
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,161 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ include file="/common/tagslib.jsp" %>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!--
+ 模块名：	module查询列表页面
+ 说明：		module查询列表页面
+ 编写者：     	<author>
+ 编写日期：	<2012/5/20>
+ 修改信息：	
+-->
+<html>
+  <head>
+	<%@ include file="/common/header.jsp" %>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			autoHeight($('#autoHeightDiv'),325);
+			$("#biUserInfoIdHid").val("${stuEarnest.stuBaseInfo.id}");
+			initAutoComplete()
+		});
+		function initAutoComplete(){
+			 $("#userNameTxt").autocomplete({
+                minLength: 1,
+                source: function(request, response){
+                    var cnName = $("#userNameTxt").val();
+                    $.ajax({
+                        beforeSend: function(){
+                            showLoading();
+                        },
+                        cache: false,
+                        type: 'post',
+                        async: false,
+                        data: {"cnName": cnName},
+                        url: '${path}/main/biEmployee/getEmployeeList.do',
+                        dataType: 'json',
+                        error: function(XMLHttpRequest, textStatus, errorThrown){
+                            //alert(XMLHttpRequest.status);
+                        },
+                        success: function(data){
+                            hideLoading();$(data).each(function(i, item){if(item.result=='102'){alert(item.errorInfo);winload("${path}/main/index.do");}});
+                            response($.map(data, function(item){
+			                    var sex = item.sex == 'F' ? "女" : "男";
+								return {
+					                label: item.cnName+ " , " + sex +", " + item.mobile+ ", 工号：" + item.jobNo,
+					                text: item.cnName,
+					                value: item.userId
+					              }
+                            }))
+                        }
+                    })
+                },
+                focus: function(event, ui){
+                    $("#userNameTxtNameTxt").val(ui.item.text);
+                    return false;
+                },
+                select: function(event, ui){
+					$("#biUserInfoIdHid" ).val(ui.item.value); 
+                    $("#userNameTxt").val(ui.item.text);
+                    return false;
+                }
+            });
+		}
+		function doQuery(){
+			$('#form1').submit();
+		}
+	</script>
+</head>
+
+<body>
+	<div id="main-div" class="width-p100">
+            <t:Top></t:Top>
+            <div class="content main-page-190">
+                <div class="title">
+                    <table class="title-tb" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td class="td-left">
+                            </td>
+                            <td class="td-title">
+                               	<fmt:message key="biUserLog.table_title" />
+                            </td>
+                            <td class="td-right">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+				<div class="margin-lr-1">
+					<form id="form1" action="${path}/main/biUserLog/list.do"
+						method="post">
+						<table class="search-tb width-p100">
+							<tr>
+								<td class="left">
+									<i class="icon icon-play"></i>查询选项
+								</td>
+								<td class="center">
+									<table class="search-form-tb">
+										<tr>
+											<td class="ltd6">
+												员工姓名
+											</td>
+											<td class="rtd6">
+											<input type="hidden" name="biUserInfo.id" id='biUserInfoIdHid' value="${biUserLog.biUserInfo.id}"/>
+												<input value="${biUserLog.biUserInfo.userName}" class="width-p80" id="userNameTxt" type="text"  maxlength="150" name="biUserInfo.userName"/>
+											</td>
+											<td class="ltd6">
+											开始时间
+										</td>
+										<td class="rtd6">
+											<input value="${biUserLog.beginDateString}" tagname="dateInputYear" autocomplete="off"name="beginDateString" id="beginDateTxt" class="width-p80" type="text" maxlength="255" />
+										</td>
+										<td class="ltd6">
+											结束时间
+										</td>
+										<td class="rtd6">
+											<input value="${biUserLog.endDateString}" tagname="dateInputYear"  autocomplete="off"name="endDateString" id="endDateTxt" class="width-p80" type="text" maxlength="255" />
+										</td>
+										</tr>
+									</table>
+								</td>
+								<td class="td-btn">
+									<a class="btn1 btn-small" href="javaScript:doQuery()"><fmt:message key="btn.search" />
+									</a>
+								</td>
+							</tr>
+						</table>
+					</form>
+					<div id="autoHeightDiv" class="over-flow-x-hidden">
+						<c:if test='${pagedData.totalPageCount<1}'>
+							<div class="no-data-div"><fmt:message key="msg.no_data" /></div>
+						</c:if>
+						<c:if test='${pagedData.totalPageCount>0}'>
+							<table class="list-tb" width="100%">
+							  <thead>
+							  	<tr>
+								  	<th></th>
+										<th><fmt:message key="biUserLog.url" /></th>
+										<th><fmt:message key="biUserLog.userName" /></th>
+										<th><fmt:message key="biUserLog.ip" /></th>
+										<th><fmt:message key="biUserLog.date" /></th>
+								</tr>
+							  </thead>
+							  <tbody>
+								  <c:forEach var="item" items='${pagedData.result}' varStatus="s">
+										<tr>
+											<td class="tb-left-bg" style="text-align: center">${pagedata.start+s.index+1}</td>
+											<td>${item.url}</td>
+											<td>${item.biUserInfo.userName}</td>
+											<td>${item.customIP}</td>
+											<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${item.createDate}"/></td>
+										</tr>
+									</c:forEach>
+					  			</tbody>
+					 		</table>
+							</c:if>
+						</div>
+			<t:PageBar pageUrl="${path}/main/biUserLog/list.do" pageAttrKey="pagedData"/>
+		</div>
+  	</div>
+  	<t:Footer></t:Footer>
+	</div>
+
+</body>
+</html>

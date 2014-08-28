@@ -1,0 +1,285 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8" %>
+<%@ include file="/common/tagslib.jsp" %>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <%@ include file="/common/header.jsp" %>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#statusSelect').val("${biEmployee.status}");
+                $('#biOrganSelect').val("${biEmployee.biOrgan.id}");
+                $('#employeeTypeSelect').val("${biEmployee.employeeType}");
+				initAutoComplete();
+				autoHeight($('#autoHeightDIV'),296);
+            });
+            
+			function initAutoComplete(){
+				 $("#employeeTxt").autocomplete({
+                    minLength: 1,
+                    source: function(request, response){
+                        var cnName = $("#employeeTxt").val();
+                        $.ajax({
+                            beforeSend: function(){
+                                showLoading();
+                            },
+                            cache: false,
+                            type: 'post',
+                            async: false,
+                            data: {"cnName": cnName},
+                            url: '${path}/main/biEmployee/getEmployeeList.do',
+                            dataType: 'json',
+                            error: function(XMLHttpRequest, textStatus, errorThrown){
+                                //alert(XMLHttpRequest.status);
+                            },
+                            success: function(data){
+                                hideLoading();$(data).each(function(i, item){if(item.result=='102'){alert(item.errorInfo);winload("${path}/main/index.do");}});
+                                response($.map(data, function(item){
+				                    var sex = item.sex == 'F' ? "女" : "男";
+									return {
+						                label: item.cnName+ " , " + sex +", " + item.mobile+ ", 工号：" + item.jobNo,
+						                text: item.cnName,
+						                value: item.id
+						              }
+                                }))
+                            }
+                        })
+                    },
+                    focus: function(event, ui){
+                        $("#employeeTxt").val(ui.item.text);
+                        return false;
+                    },
+                    select: function(event, ui){
+                        $("#employeeTxt").val(ui.item.text);
+                        return false;
+                    }
+                });
+			}
+			
+			function initRoleColoun(id){
+				var str="";
+				$.ajax({
+                        beforeSend: function(){
+                            $("#"+id).html("加载中……");
+                        },
+                        cache: false,
+                        type: 'post',
+                        async: false,
+                        data: {"id": id},
+                        url: '${path}/main/biEmployee/getEmployeeRoleList.do',
+                        dataType: 'json',
+                        error: function(XMLHttpRequest, textStatus, errorThrown){
+                            //alert(XMLHttpRequest.status);
+                        },
+                        success: function(data){
+                            $.each(data, function(i,n){
+								str+=n.biOrganName+"--"+n.biRoleName+"<br/>";
+							});
+                        }
+                    });
+				str+="<a class=\"btn2 btn-small\" href=\"javascript:hideRoleColoun('"+id+"');\">隐藏</a>";
+				$("#"+id).html(str);
+			}
+			
+			function hideRoleColoun(id){
+				$("#"+id).empty();
+				$("#"+id).html("<a class=\"btn2 btn-small\" href=\"javascript:initRoleColoun('"+id+"');\">显示岗位信息</a>");
+			}
+			
+            function doQuery(){
+                $('#form1').submit();
+            }
+            
+            function update(id){
+                winload("${path}/main/biEmployee/update/view.do?id=" + id);
+            }
+			
+            function view(id){
+                winload("${path}/main/biEmployee/show.do?id="+id);
+            }
+            
+            function reset(id){
+                winload("${path}/main/biEmployee/resetpswd/view.do?id=" + id);
+            }
+            
+            function del(id){
+                if (confirm("确认删除")) {
+                    winload("${path}/main/biEmployee/delete.do?id=" + id);
+                }
+            }
+            
+            function setupRole(id){
+                winload("${path}/main/biEmployee/addRole/view.do?id=" + id);
+            }
+        </script>
+    </head>
+    <body>
+        <div id="main-div" class="width-p100">
+            <t:Top></t:Top>
+            <div class="content main-page-190">
+                <div class="title">
+                    <table class="title-tb" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td class="td-left">
+                            </td>
+                            <td class="td-title">
+                                <fmt:message key="biEmployee.table_title" /><fmt:message key="btn.search" />
+                            </td>
+                            <td class="td-btn">
+                            	<c:if test="${fn:contains(btnStr, 'd1')}" >
+                                <a class="btn2 btn-small" href="${path}/main/biEmployee/add/view.do"><fmt:message key="btn.add"/></a>
+                           		</c:if>
+						    </td>
+                            <td class="td-right">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+				<div class="margin-lr-1">
+	                <table class="search-tb width-p100">
+	                	<form id="form1" action="${path}/main/biEmployee/list.do"  method="get">
+	                    <tr>
+	                    	<td class="left"><i class="icon icon-play"></i>查询选项</td>
+							<td class="center">
+								<table class="search-form-tb">
+									<tr>
+										 <td class="ltd6">
+											姓名/电话/工号
+				                        </td>
+				                        <td class="rtd6">
+				                            <input value="${biEmployee.cnName}" id="employeeTxt" type="text" autocomplete="off" name="cnName" class="width-p90" maxlength="100" />
+				                        </td>
+				                        <td class="ltd6">
+				                            <fmt:message key="biEmployee.biOrgan" />
+				                        </td>
+				                        <td class="rtd6">
+				                            <select id="biOrganSelect" name="biOrgan.id" class="width-p90">
+				                                <option value="">--全部--</option>
+												 <c:forEach var="item" items='${biOrganList}' varStatus="s">
+				                                    <option value="${item.id}">${item.name}</option>
+				                                </c:forEach>
+				                            </select>
+				                        </td>
+				                        <td class="ltd6">
+				                            <fmt:message key="biEmployee.status" /> /
+				                            <fmt:message key="biEmployee.employeeType" />
+				                        </td>
+				                        <td class="rtd6">
+				                            <select id="statusSelect" name="status" class="width-p45">
+				                                <option value="">--全部--</option>
+				                               	<option value="SHIXI">实习</option>
+												<option value="SHIYONG">试用</option>
+												<option value="ZHENGSHI">正式</option>
+												<option value="XIUJIA">休假</option>
+												<option value="LIZHI">离职</option>
+				                            </select>
+				                            <select id="employeeTypeSelect" name="employeeType" class="width-p45">
+				                                <option value="">--全部--</option>
+												<c:forEach var="item" items='${employeeTypeList}' varStatus="s">
+				                                    <option value="${item.typeCode}">${item.typeName}</option>
+				                                </c:forEach>
+				                            </select>
+				                        </td>
+									</tr>
+								</table>
+							</td>
+							<td class="td-btn">
+								<a class="btn1 btn-small" href="javaScript:doQuery()"><fmt:message key="btn.search"/></a>
+							</td>
+	                    </tr>
+						</form>
+	                </table>
+	                <div id="autoHeightDIV" class="over-flow-x-hidden">
+	                    <c:if test='${pageData.totalPageCount<1}'>
+	                        <div class="no-data-div">
+	                            <fmt:message key="msg.no_data" />
+	                        </div>
+	                    </c:if>
+	                    <c:if test='${pageData.totalPageCount>0}'>
+	                        <table class="list-tb" width="100%">
+	                            <thead>
+	                                <tr>
+										<th></th>
+										<th><fmt:message key="biEmployee.cnName" />(<fmt:message key="biEmployee.enName" />)</th>
+										<th><fmt:message key="biEmployee.sex" /></th>
+										<th><fmt:message key="biEmployee.jobNo" /></th>
+										<th><fmt:message key="biEmployee.mobile" /></th>
+										<th><fmt:message key="biEmployee.biOrgan" /></th>
+										<th>岗位信息</th>
+										<th>类型</th>
+										<th><fmt:message key="biEmployee.status" /></th>
+										<th><fmt:message key="list.columns.do" /></th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                <c:forEach var="item" items='${pageData.result}' varStatus="s">
+	                                    <tr>
+	                                        <td class="tb-left-bg" style="text-align: center">
+	                                             ${pageData.start+s.index+1}
+	                                        </td>
+	                                        <td class="width-p10">
+	                                            ${item.cnName}
+	                                            <c:if test="${item.enName!=''}">
+	                                                (${item.enName})
+	                                            </c:if>
+	                                        </td>
+											
+	                                        <td class="width-p05">
+	                                            <c:if test="${item.sex=='M'}">男</c:if>
+	                                            <c:if test="${item.sex=='F'}">女</c:if>
+	                                        </td>
+	                                        <td class="width-p05">
+	                                            ${item.jobNo}
+	                                        </td>
+	                                        <td class="width-p10">
+	                                            ${item.mobile}
+	                                        </td>
+	                                        <td class="width-p10"> ${item.biOrgan.name}
+	                                        </td>
+	                                        <td class="width-p15">
+	                                        	<span name="roleSpan" id="${item.id}">
+	                                        		<a class="btn2 btn-small" href="javascript:initRoleColoun('${item.id}');">显示岗位信息</a>
+	                                        	</span>
+	                                        </td>
+											<td class="width-p05">
+												<c:forEach var="initem" items='${employeeTypeList}' varStatus="s">
+													<c:if test="${item.employeeType==initem.typeCode}">${initem.typeName}</c:if>
+				                                </c:forEach>
+											</td>
+	                                        <td class="width-p05">
+	                                            <c:if test="${item.status=='SHIXI'}">实习 </c:if>
+	                                            <c:if test="${item.status=='SHIYONG'}">试用</c:if>
+	                                            <c:if test="${item.status=='ZHENGSHI'}">正式</c:if>
+	                                            <c:if test="${item.status=='XIUJIA'}">休假</c:if>
+	                                            <c:if test="${item.status=='LIZHI'}">离职</c:if>
+	                                        </td>
+	                                        <td class="width-p35">
+	                                        	<c:if test="${fn:contains(btnStr, 'd5')}" >
+	                                            <a class="btn2 btn-small" href="javascript:view('${item.id}');"><i class="icon icon-file"></i>详情</a>
+	                                            </c:if>
+												<c:if test="${fn:contains(btnStr, 'd4')}" >
+												<a class="btn2 btn-small" href="javascript:reset('${item.id}');"><i class="icon icon-cog"></i>重置密码</a>
+	                                            </c:if>
+												<c:if test="${fn:contains(btnStr, 'd2')}" >
+												<a class="btn2 btn-small" href="javascript:update('${item.id}');"><i class="icon icon-wrench"></i><fmt:message key="btn.edit"/></a>
+												</c:if>
+												<c:if test="${fn:contains(btnStr, 'd3')}" >
+												<a class="btn2 btn-small" href="javascript:del('${item.id}');"><i class="icon icon-trash"></i><fmt:message key="btn.del"/></a>
+												</c:if>
+												<c:if test="${fn:contains(btnStr, 'd6')}" >
+												<a class="btn2 btn-small" href="javascript:setupRole('${item.biUserInfo.id}');"><i class="icon icon-cog"></i><fmt:message key="btn.setup"/><fmt:message key="biRole.table_title"/></a>
+	                                        	</c:if>
+											</td>
+	                                    </tr>
+	                                </c:forEach>
+	                            </tbody>
+	                        </table>
+							
+	                    </c:if>
+	                </div>
+	                <t:PageBar pageUrl="${path}/main/biEmployee/list.do" pageAttrKey="pageData"/>
+            	</div>
+			</div>
+			<t:Footer></t:Footer>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,50 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8" %>
+<%@ include file="/common/tagslib.jsp" %>
+<%@ include file="/common/header.jsp" %>
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <title>Bug_V101</title>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                if ("${messageCode}" == "01") {
+                    jqueryUIAlert('恭喜您操作成功！点击确定将回到上一操作页面');
+                }
+            })
+        </script>
+    </head>
+    <body>
+        <div id="main-div" class="width-p100">
+            <t:Top>
+            </t:Top>
+            <div class="content">
+                <div class="SubHeader">
+                    <div class="Contents">
+                        <div class="Right Sub Sar">
+                            <div class="Bugicon Midbox">
+                                Bug：统计
+                            </div>
+                        </div>
+                        <div class="Solution Insert ">
+                            <form action="${path}/main/bugContent/add/save.do" method="post">
+                                <input type="hidden" name="project.id" value="${projectVO.project.id}">
+                                <table class="width-p100">
+                                    <tr>
+                                        <td class="col-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">标题</span>
+                                                <input type="text" class="form-control" required="required" name="bugContentList[0].name">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <t:Footer>
+            </t:Footer>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,348 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8" %>
+<%@ include file="/common/tagslib.jsp" %>
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!--
+模块名：	module查询列表页面
+说明：		module查询列表页面
+编写者：     	<author>
+编写日期：	<2012/5/20>
+修改信息：
+-->
+<html>
+    <head>
+        <%@ include file="/common/header.jsp" %>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                initPage();
+            });
+            
+            function initPage(){
+				$('#tpCourseSelect').val("${tmClassStuVO.tpCourseCode}");
+				$('#biOrganSelect').val("${tmClassStuVO.biOrganId}");
+				$('#classTypeSelect').val("${tmClassStuVO.classType}");
+				$('#subjectSelect').val("${tmClassStuVO.subject}");
+				$('#infoFromSelect').val("${tmClassStuVO.infoFrom}");
+				$('#gradeSelect').val("${tmClassStuVO.govGrade}");
+				if("${tmClassStuVO.govSchool}"!=''){
+					getGovSchoolName("${tmClassStuVO.govSchool}");
+				}
+				initGovSchoolAutoCom();
+            }
+			
+			function open(flag){
+				var paramsStr=getSearchParam();
+				if(paramsStr!=""){paramsStr="?"+paramsStr.substring(1,paramsStr.length);}
+				if(flag=='organ'){winload('${path}/main/report/stu/organ.do'+paramsStr)}
+				if(flag=='status'){winload('${path}/main/report/stu/status.do'+paramsStr)}
+				if(flag=='is_new'){winload('${path}/main/report/stu/isnew.do'+paramsStr)}
+				if(flag=='grade'){winload('${path}/main/report/stu/grade.do'+paramsStr)}
+				if(flag=='subject'){winload('${path}/main/report/stu/subject.do'+paramsStr)}
+				if(flag=='classType'){winload('${path}/main/report/stu/classType.do'+paramsStr)}
+				if(flag=='infoFrom'){winload('${path}/main/report/stu/infofrom.do'+paramsStr)}
+				if(flag=='govSchool'){winload('${path}/main/report/stu/govSchool.do'+paramsStr)}
+			}
+			
+			function view(id){
+				var courseCode="${tmClassStuVO.tpCourseCode}";
+				var govSchool="${tmClassStuVO.govSchool}";
+				var infoFrom="${tmClassStuVO.infoFrom}";
+				var biOrganId="${tmClassStuVO.biOrganId}";
+				var classType="${tmClassStuVO.classType}";
+				var subject="${tmClassStuVO.subject}";
+				var govGrade="${tmClassStuVO.govGrade}";
+				
+				var params="?status="+id;
+				params+="&tpCourseCode="+courseCode;
+				params+="&govSchool="+govSchool;
+				params+="&infoFrom="+infoFrom;
+				params+="&classType="+classType;
+				params+="&subject="+subject;
+				params+="&govGrade="+govGrade;
+				
+                winload("${path}/main/report/stu/show.do" + params);
+            }
+            
+            function doQuery(){
+                $('#form1').submit();
+            }
+			
+			function initGovSchoolAutoCom(){
+				$("#govSchoolTxt").autocomplete({
+					minLength: 1,
+					source: function(request, response) {
+						var key = $("#govSchoolTxt").val();
+						$.ajax({ beforeSend: function(){showLoading();},
+							cache : false,
+							type : 'post',
+							async : false,
+							data : {"groupCode" : "gov_school_03","typeName" : key},
+					        url : '${path}/main/biParam/getBiParamList.do',
+					        dataType : 'json',
+					        error: function(XMLHttpRequest, textStatus, errorThrown){
+								//alert(XMLHttpRequest.status);
+					        },
+					        success: function(data){  hideLoading();$(data).each(function(i, item){if(item.result=='102'){alert(item.errorInfo);winload("${path}/main/index.do");}});
+								response($.map(data, function(item){
+									var sex=item.sex=='F'?"女":"男";
+									var motherName=item.motherName==undefined?"未登记":item.motherName;
+									return {
+						                label: item.typeName,
+						                value: item.typeCode
+						              }
+						        }))
+					        }
+					    })
+					},
+					select: function( event, ui ) {
+						$('#govSchoolTD').empty();
+						$('#govSchoolTD').append(ui.item.label+" <input id=\"govSchoolCodeHid\" value=\""+ui.item.value+"\"  type=\"hidden\" name=\"govSchool\" />  <a class=\"btn1 btn-small\" href=\"#\" onclick=\"javascript:reloadGovSchool();\" >重置</a>");
+						return false;
+					}
+				})
+			}
+			
+			function reloadGovSchool(){
+				$('#govSchoolTD').empty();
+				$('#govSchoolTD').append("  <input id=\"govSchoolCodeHid\"  type=\"hidden\"  name=\"govSchool\"/> ");
+				$('#govSchoolTD').append(" 	<input id=\"govSchoolTxt\"  type=\"text\" autocomplete=\"off\"   class=\"width-p90\" maxlength=\"36\" />");
+				initGovSchoolAutoCom();
+			}
+			
+			function getGovSchoolName(govSchool){
+				$.ajax({ beforeSend: function(){showLoading();},
+					cache : false,
+					type : 'post',
+					async : false,
+					data : {"typeCode" : govSchool,"groupCode":"gov_school_03"},
+			        url : '${path}/main/biParam/getBiParamValue.do',
+			        dataType : 'json',
+			        error: function(XMLHttpRequest, textStatus, errorThrown){
+						//alert(XMLHttpRequest.status);
+			        },
+			        success: function(data){  hideLoading();$(data).each(function(i, item){if(item.result=='102'){alert(item.errorInfo);winload("${path}/main/index.do");}});
+						$(data).each(function(i, item){
+							$('#govSchoolTD').empty();
+							$('#govSchoolTD').append(item.typeName+" <input id=\"govSchoolCodeHid\" value=\""+item.typeCode+"\"  type=\"hidden\" name=\"govSchool\" />  <a class=\"btn1 btn-small\" href=\"#\" onclick=\"javascript:reloadGovSchool();\" >重置</a>");
+							$('#govSchoolTxt').val(item.typeName);
+	                    });
+			        }
+			    });
+			}
+            
+        </script>
+		<style>
+			.tabs-btn{width:60px; height:30px;margin:2px;line-height:30px; display:block;float:left;border:solid 1px green;text-align:center; background:green; color:white;}
+			.tabs-btn-current{width:60px; height:30px;margin:2px;line-height:30px;display:block;float:left;border:solid 1px red; background:red; color:white;text-align:center;}
+		</style>
+    </head>
+    <body>
+        <div id="main-div" class="width-p100">
+            <t:Top>
+            </t:Top>
+            <div class="content main-page-190">
+                <div class="title">
+                    <table class="title-tb" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td class="td-left">
+                            </td>
+                            <td class="td-title">
+                               	在校生统计
+                            </td>
+                            <td class="td-btn">
+                            </td>
+                            <td class="td-right">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="margin-lr-1">
+                	<form id="form1" action="${path}/main/report/stu/status.do" method="get">
+                		<table class="search-tb width-p100">
+	                        <tr>
+	                            <td class="left">
+	                                <i class="icon icon-play"></i>查询选项
+	                            </td>
+	                            <td class="center">
+	                                <table class="search-form-tb">
+	                                    <tr>
+	                                        <td class="ltd8">
+	                                            <fmt:message key="tmClassStu.biOrgan"/>
+	                                        </td>
+	                                        <td class="rtd8">
+	                                            <select class="width-p90" id="biOrganSelect" name="biOrganId">
+	                                                <c:forEach var="item" items='${biOrganList}'>
+	                                                    <option value="${item.id}">${item.name}</option>
+	                                                </c:forEach>
+	                                            </select>
+	                                        </td>
+	                                        <td class="ltd8">
+	                                            	课程
+	                                        </td>
+	                                        <td class="rtd8">
+	                                            <select id="tpCourseSelect" name="tpCourseCode" class="width-p90">
+	                                                <option value="">--全部--</option>
+	                                                <c:forEach var="item" items="${tpCourseList}">
+	                                                    <option value="${item.courseCode}">${item.name}</option>
+	                                                </c:forEach>
+	                                            </select>
+	                                        </td>
+											<td class="ltd8">
+	                                            <fmt:message key="tmClass.classType"/>
+	                                        </td>
+	                                        <td class="rtd8">
+	                                            <select id="classTypeSelect" name="classType" class="width-p90">
+	                                            	<option value="">--全部--</option>
+													<c:forEach var="item" items="${classTypeList}">
+	                                                    <option value="${item.typeCode}">${item.typeName}</option>
+	                                                </c:forEach>
+	                                            </select>
+	                                        </td>
+											<td class="ltd8">
+	                                            <fmt:message key="tmClass.subject"/>
+	                                        </td>
+	                                        <td class="rtd8">
+	                                            <select id="subjectSelect" name="subject" class="width-p90">
+	                                                <option value="">--全部--</option>
+													<c:forEach var="item" items="${subjectList}">
+	                                                    <option value="${item.typeCode}">${item.typeName}</option>
+	                                                </c:forEach>
+	                                            </select>
+	                                        </td>
+	                                    </tr>
+										<tr>
+											<td class="ltd8">
+	                                            <fmt:message key="tmClass.grade"/>
+	                                        </td>
+	                                        <td class="rtd8">
+	                                           	<select id="gradeSelect" name="govGrade" class="width-p90" name="grade">
+													<option value="">--年级--</option>
+													<option value="01">小小班</option>
+													<option value="02">小班</option>
+													<option value="03">中班</option>
+													<option value="04">大班</option>
+													<option value="11">一年级</option>
+													<option value="12">二年级</option>
+													<option value="13">三年级</option>
+													<option value="14">四年级</option>
+													<option value="15">五年级</option>
+													<option value="16">六年级</option>
+													<option value="17">七年级</option>
+													<option value="18">八年级</option>
+													<option value="19">九年级</option>
+													<option value="21">高一</option>
+													<option value="22">高二</option>
+													<option value="23">高三</option>
+												</select>
+	                                        </td>
+											<td class="ltd8">
+												公立学校
+	                                        </td>
+	                                        <td class="rtd8" id="govSchoolTD">
+	                                        	<input id="govSchoolTxt"  type="text" autocomplete="off"   class="width-p90" maxlength="36" />
+												<input id="govSchoolCodeHid"  type="hidden" name="govSchool"  class="width-p90" maxlength="36" />
+	                                        </td>
+											<td class="ltd8">
+												 信息来源
+	                                        </td>
+	                                        <td class="rtd8">
+	                                        	<select id="infoFromSelect" class="width-p90" name="infoFrom">
+													<option value="">--全部--</option>
+													<c:forEach var="item" items="${infoFromList}" >
+														<option value="${item.typeCode}">${item.typeName}</option>
+													</c:forEach>
+												</select>
+	                                        </td>
+	                                    </tr>
+	                                </table>
+	                            </td>
+	                            <td class="td-btn">
+	                                <a class="btn1 btn-small" href="javaScript:doQuery()"><fmt:message key="btn.search"/></a>
+	                            </td>
+	                        </tr>
+	                </table>
+				</form>
+                <div class="main-page-290 over-flow-x-hidden">
+                	<table class="add-tb">
+                		<tr>
+							<td class="td-title" colspan="2">
+								<font size=2 color="black"> <i class=" icon-chevron-down"></i> 
+								<strong>汇总</strong>&nbsp;&nbsp;&nbsp; </font>
+							</td>
+						</tr>
+                		<tr>
+							<td class="ltd2" colspan="2">
+								<div class="margin-lr-1">
+									<a class="tabs-btn" href="javaScript:open('organ');" >校区</a>
+									<a class="tabs-btn-current" href="javaScript:open('status');" >学生状态</a>
+									<a class="tabs-btn" href="javaScript:open('is_new');" >新生/老生</a>
+									<a class="tabs-btn" href="javaScript:open('grade');" >年级</a>
+									<a class="tabs-btn" href="javaScript:open('subject');" >科目</a>
+									<a class="tabs-btn" href="javaScript:open('classType');" >班型</a>
+									<a class="tabs-btn" href="javaScript:open('infoFrom');" >信息来源 </a>
+									<a class="tabs-btn" href="javaScript:open('govSchool');" >公立学校</a>
+									<c:if test='${fn:length(sumList)<1}'>
+				                        <div class="no-data-div">
+				                            <fmt:message key="msg.no_data" />
+				                        </div>
+				                    </c:if>
+				                    <c:if test='${fn:length(sumList)>0}'>
+				                        <table class="list-tb" width="100%">
+				                            <thead>
+				                                <tr>
+													<th> 
+														状态
+				                                    </th>
+													<th> 人数
+				                                    </th>
+				                                    <th>
+				                                        <fmt:message key="list.columns.do" />
+				                                    </th>
+				                                </tr>
+				                            </thead>
+				                            <tbody>
+				                                <c:forEach var="item" items='${sumList}' varStatus="s">
+				                                    <tr>
+														<td>
+															<c:if test="${item[0]=='stu_enroll'}">新生报名</c:if>
+															<c:if test="${item[0]=='stu_enroll_again'}">续费报名</c:if>
+															<c:if test="${item[0]=='stu_init_enroll'}">初始报名</c:if>
+															<c:if test="${item[0]=='rollback'}">作废</c:if>
+															<c:if test="${item[0]=='change_stufee_in'}">转费转入</c:if>
+															<c:if test="${item[0]=='change_stufee_out'}">转费转出</c:if>
+															<c:if test="${item[0]=='change_class_in'}">转班转入</c:if>
+															<c:if test="${item[0]=='change_class_out'}">转班转出</c:if>
+															<c:if test="${item[0]=='change_school_in'}">转校转入</c:if>
+															<c:if test="${item[0]=='change_school_out'}">转校转出</c:if>
+															<c:if test="${item[0]=='nature_refound'}">自然退学</c:if>
+															<c:if test="${item[0]=='refound'}">退学</c:if>
+															<c:if test="${item[0]=='stop'}">休学</c:if>
+															<c:if test="${item[0]=='stop_return'}">休返</c:if>
+															<c:if test="${item[0]=='stop_refound'}">休退</c:if>
+															<c:if test="${item[0]=='over'}">结束</c:if>
+				                                        </td>
+														<td>
+															${item[1]}
+				                                        </td>
+				                                        <td class="width-p10">
+				                                        	<a class="btn2 btn-small" href="javascript:view('${item[0]}');">明细</a>
+				                                        </td>
+				                                    </tr>
+				                                </c:forEach>
+				                            </tbody>
+				                        </table>
+				                    </c:if>
+								</div>
+							</td>
+						</tr>
+                	</table>
+                </div>
+                </td>
+            </tr>
+            </table>
+        </div>
+        </div>
+        <t:Footer>
+        </t:Footer>
+    </div>
+    </body>
+</html>

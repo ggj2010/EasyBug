@@ -1,0 +1,263 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+        <meta http-equiv="description" content="this is my page">
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <title>最简单的bug管理系统，免费在线bug管理工具-EasyBug</title>
+        <meta name="Keywords" content="bug管理系统,bug管理工具,easybug" />
+        <meta name="Description" content="easybug,免费的在线bug管理工具与bug管理系统,不同于传统的bug管理工具,easybug将bug管理系统进行改革,真正实现在线bug管理,使用easybug,bug管理很简单" />
+        <link href="style.css" rel="stylesheet" type="text/css" />
+        <script src="common.js" type="text/javascript">
+        </script>
+        <!-- start of wrapper-->
+        <div class=" Wrapper">
+            <!-- start of top-->
+            <div class="Top">
+                <div class="left White">
+                    <a class="DLine light-yellow" href="/">主页</a>
+                    欢迎<span class="username">高广金</span>
+                    已加入<a class="DLine light-yellow" href="/Team/TeamList"><b>2</b> 个团队</a>
+                    <a class="DLine light-yellow" href="/Project/ProjectList"><b>2</b> 个项目</a>|<a class="DLine light-yellow" href="/Team/MyTeam"> 我的团队</a>|<a class="DLine light-yellow" href="/Member/MyInfo"> 个人资料</a>|<a class="DLine light-yellow" href="/Member/Logout"> 退出</a>
+                </div>
+                <form id="lan_form" action="/Home/SelectLanguage" method="post">
+                    <div class="right help-language">
+                        <!--<span class="icon_biger"><a class="help-icon" href="http://www.uinicall.com/client/uinicall.php?room=10325&userid=13207&code=1"
+                        target="_blank">
+                        在线咨询
+                        </a></span> --><span class="icon_big">语言</span>
+                        <a href="javascript:SetLanguage('zh-CN')"><img title='中文简体' src="/Content/images/countrygif/cn.gif" />&nbsp;中</a><a href="javascript:SetLanguage('en-US')"><img title='英文' src="/countrygif/gb.gif" />&nbsp;EN</a><input id="hidden_lan" type="hidden" value="zh-CN" name="lan" /><input type="hidden" value="/Bug/BugStat/10105" name="addr" />
+                    </div>
+                </form>
+            </div><!--end of top-->
+            <link href="calendar_style.css" rel="stylesheet" type="text/css" />
+            <script src="ShowCalendar.js" type="text/javascript">
+            </script>
+            <script type="text/javascript" src="swfobject.js">
+            </script>
+            <!-- start of subheader-->
+            <div class="SubHeader">
+                <span class="left"><img src="/Content/images/nopic.jpg" class="BlueBorder icon_biger user-logo-define" />
+                    <select id="s_prj" class="Select" onchange="ChangePrj();">
+                        <option value="10871"> Test</option>
+                        <option value="10105" selected='selected'> 培训学校综合管理系统</option>
+                    </select>
+                </span>
+                <script type="text/javascript">
+                    function ChangePrj(){
+                        var url = window.location.toString();
+                        if (url.toLowerCase().indexOf("addbug") > 0) {
+                            url = url.substring(0, url.lastIndexOf("/"))
+                            window.location = url.substring(0, url.lastIndexOf("/") + 1) + document.getElementById('s_prj').value + "/0";
+                            return;
+                        }
+                        window.location = url.substring(0, url.lastIndexOf("/") + 1) + document.getElementById('s_prj').value;
+                    }
+                </script>
+                <ul class="Menu">
+                    <li>
+                        <a href="/Project/ProjectInfo/10105" class="menu1 "> 项目概况</a>
+                    </li>
+                    <li>
+                        <a href="/Bug/MyBug/10105" class="menu2 ">分配给我的Bug</a>
+                    </li>
+                    <li>
+                        <a href="/Bug/MyCreateBug/10105" class="menu3 ">我创建的Bug</a>
+                    </li>
+                    <li>
+                        <a href="/Bug/AllBug/10105" class="menu4 ">所有Bug</a>
+                    </li>
+                    <li>
+                        <a href="/Bug/BugStat/10105" class="menu5 Activity">Bug统计</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- end of subheader--><!-- start of content -->
+            <div class="Content">
+                <div class="Right">
+                <div class="Bugicon Midbox">
+                    Bug统计
+                </div>
+                <div class="relative CenterBox Sub">
+                    <form method="post" id="_form" action="/Bug/BugStat/10105">
+                        <div class="SearchBox left">
+                            <span class="left icon_biger">
+                                <label>
+                                    日期
+                                </label>
+                                <input name="time_from" type="text" value="2014-01-01" onclick="new TSCalendar(0).show(this);"/>至<input name="time_to" type="text" value="2014-04-24" onclick="new TSCalendar(0).show(this);"/></span><a href="javascript:SubmitForm('_form');" class=" Buttom  "><span>提交</span></a>
+                        </div>
+                    </form>
+                    <a href="/Bug/AddBug/10105/0" class="button-create"><span>提交新Bug</span></a>
+                    <div class="clear">
+                        <!-- -->
+                    </div>
+                </div>
+                <p class="clear" /><!-- -->
+                </p><!--start of solution-->
+                <div class="Solution">
+                    <div class="PageTop BiggestFont Black">
+                        Bug
+                        分布比例图
+                    </div>
+                    <br/>
+                    <div class="ScaleBox icon_bigest left">
+                        <div class="scalemenu box">
+                            <span>优先级</span>
+                        </div>
+                        <div class="clear box">
+                            <!-- -->
+                        </div>
+                        <div id="flashcontent">
+                            <strong>You need to upgrade your Flash Player</strong>
+                        </div>
+                        <script type="text/javascript">
+                            // <![CDATA[		
+                            var so = new SWFObject("ampie.swf?cache=0", "ampie", "400", "300", "8", "#ffffff");
+                            
+                            
+                            so.addVariable("settings_file", encodeURIComponent("ampie_settings.xml"));
+                            so.addVariable("chart_data", encodeURIComponent("低;31;false;ABDD79\n中;0;false;92C1D6\n高;0;false;FCE66C\n紧急;0;false;E74862\n严重;0;false;FEC514"));
+                            so.addVariable("preloader_color", "#000000");
+                            so.write("flashcontent");
+                            // ]]>
+                        </script>
+                        <!-- end of ampie script -->
+                    </div>
+                    <div class="ScaleBox right">
+                        <div class="scalemenu box">
+                            <span>状态</span>
+                        </div>
+                        <div class="clear box">
+                            <!-- -->
+                        </div>
+                        <div id="flashcontent2">
+                            <strong>You need to upgrade your Flash Player</strong>
+                        </div>
+                        <script type="text/javascript">
+                            // <![CDATA[		
+                            var so = new SWFObject("ampie.swf", "ampie", "400", "300", "8", "#ffffff");
+                            
+                            so.addVariable("settings_file", encodeURIComponent("ampie_settings.xml"));
+                            so.addVariable("chart_data", encodeURIComponent("未修复;27;false;FEC514\n待审核;0;false;AD81D9\n已解决;4;false;ADD981\n"));
+                            so.addVariable("preloader_color", "#000000");
+                            so.write("flashcontent2");
+                            // ]]>
+                        </script>
+                    </div>
+                    <div class="clear box">
+                        <!-- -->
+                    </div>
+                    <div class="PageTop BiggestFont Black">
+                        Bug
+                        走势图
+                    </div>
+                    <br/>
+                    <div class="scalemenu box">
+                        <span>Bug总量走势图</span>
+                    </div>
+                    <div class="clear box">
+                        <!-- -->
+                    </div>
+                    <div id="flashcontent3">
+                        <strong>You need to upgrade your Flash Player</strong>
+                    </div>
+                    <script type="text/javascript">
+                        var so = new SWFObject("amxy.swf", "amxy", "800", "300", "8", "#FFFFFF");
+                        
+                        so.addVariable("settings_file", encodeURIComponent("amxy_settings.xml"));
+                        so.addVariable("chart_data", encodeURIComponent("<chart><graphs><graph gid=\"0\"><point x=\"2014-01-01\" y=\"28\"></point><point x=\"2014-01-02\" y=\"28\"></point><point x=\"2014-01-03\" y=\"29\"></point><point x=\"2014-01-04\" y=\"29\"></point><point x=\"2014-01-05\" y=\"29\"></point><point x=\"2014-01-06\" y=\"29\"></point><point x=\"2014-01-07\" y=\"29\"></point><point x=\"2014-01-08\" y=\"29\"></point><point x=\"2014-01-09\" y=\"29\"></point><point x=\"2014-01-10\" y=\"29\"></point><point x=\"2014-01-11\" y=\"29\"></point><point x=\"2014-01-12\" y=\"29\"></point><point x=\"2014-01-13\" y=\"29\"></point><point x=\"2014-01-14\" y=\"29\"></point><point x=\"2014-01-15\" y=\"29\"></point><point x=\"2014-01-16\" y=\"29\"></point><point x=\"2014-01-17\" y=\"29\"></point><point x=\"2014-01-18\" y=\"32\"></point><point x=\"2014-01-19\" y=\"33\"></point><point x=\"2014-01-20\" y=\"57\"></point><point x=\"2014-01-21\" y=\"57\"></point><point x=\"2014-01-22\" y=\"57\"></point><point x=\"2014-01-23\" y=\"57\"></point><point x=\"2014-01-24\" y=\"57\"></point><point x=\"2014-01-25\" y=\"57\"></point><point x=\"2014-01-26\" y=\"57\"></point><point x=\"2014-01-27\" y=\"57\"></point><point x=\"2014-01-28\" y=\"57\"></point><point x=\"2014-01-29\" y=\"57\"></point><point x=\"2014-01-30\" y=\"57\"></point><point x=\"2014-01-31\" y=\"57\"></point><point x=\"2014-02-01\" y=\"57\"></point><point x=\"2014-02-02\" y=\"57\"></point><point x=\"2014-02-03\" y=\"57\"></point><point x=\"2014-02-04\" y=\"57\"></point><point x=\"2014-02-05\" y=\"57\"></point><point x=\"2014-02-06\" y=\"57\"></point><point x=\"2014-02-07\" y=\"57\"></point><point x=\"2014-02-08\" y=\"57\"></point><point x=\"2014-02-09\" y=\"57\"></point><point x=\"2014-02-10\" y=\"57\"></point><point x=\"2014-02-11\" y=\"57\"></point><point x=\"2014-02-12\" y=\"57\"></point><point x=\"2014-02-13\" y=\"57\"></point><point x=\"2014-02-14\" y=\"57\"></point><point x=\"2014-02-15\" y=\"57\"></point><point x=\"2014-02-16\" y=\"57\"></point><point x=\"2014-02-17\" y=\"57\"></point><point x=\"2014-02-18\" y=\"57\"></point><point x=\"2014-02-19\" y=\"57\"></point><point x=\"2014-02-20\" y=\"57\"></point><point x=\"2014-02-21\" y=\"57\"></point><point x=\"2014-02-22\" y=\"57\"></point><point x=\"2014-02-23\" y=\"57\"></point><point x=\"2014-02-24\" y=\"57\"></point><point x=\"2014-02-25\" y=\"57\"></point><point x=\"2014-02-26\" y=\"57\"></point><point x=\"2014-02-27\" y=\"57\"></point><point x=\"2014-02-28\" y=\"57\"></point><point x=\"2014-03-01\" y=\"57\"></point><point x=\"2014-03-02\" y=\"57\"></point><point x=\"2014-03-03\" y=\"57\"></point><point x=\"2014-03-04\" y=\"57\"></point><point x=\"2014-03-05\" y=\"57\"></point><point x=\"2014-03-06\" y=\"57\"></point><point x=\"2014-03-07\" y=\"57\"></point><point x=\"2014-03-08\" y=\"57\"></point><point x=\"2014-03-09\" y=\"59\"></point><point x=\"2014-03-10\" y=\"59\"></point><point x=\"2014-03-11\" y=\"59\"></point><point x=\"2014-03-12\" y=\"59\"></point><point x=\"2014-03-13\" y=\"59\"></point><point x=\"2014-03-14\" y=\"59\"></point><point x=\"2014-03-15\" y=\"59\"></point><point x=\"2014-03-16\" y=\"59\"></point><point x=\"2014-03-17\" y=\"59\"></point><point x=\"2014-03-18\" y=\"59\"></point><point x=\"2014-03-19\" y=\"59\"></point><point x=\"2014-03-20\" y=\"59\"></point><point x=\"2014-03-21\" y=\"59\"></point><point x=\"2014-03-22\" y=\"59\"></point><point x=\"2014-03-23\" y=\"59\"></point><point x=\"2014-03-24\" y=\"59\"></point><point x=\"2014-03-25\" y=\"59\"></point><point x=\"2014-03-26\" y=\"59\"></point><point x=\"2014-03-27\" y=\"59\"></point><point x=\"2014-03-28\" y=\"59\"></point><point x=\"2014-03-29\" y=\"59\"></point><point x=\"2014-03-30\" y=\"59\"></point><point x=\"2014-03-31\" y=\"59\"></point><point x=\"2014-04-01\" y=\"59\"></point><point x=\"2014-04-02\" y=\"59\"></point><point x=\"2014-04-03\" y=\"59\"></point><point x=\"2014-04-04\" y=\"59\"></point><point x=\"2014-04-05\" y=\"59\"></point><point x=\"2014-04-06\" y=\"59\"></point><point x=\"2014-04-07\" y=\"59\"></point><point x=\"2014-04-08\" y=\"59\"></point><point x=\"2014-04-09\" y=\"59\"></point><point x=\"2014-04-10\" y=\"59\"></point><point x=\"2014-04-11\" y=\"59\"></point><point x=\"2014-04-12\" y=\"59\"></point><point x=\"2014-04-13\" y=\"59\"></point><point x=\"2014-04-14\" y=\"59\"></point><point x=\"2014-04-15\" y=\"59\"></point><point x=\"2014-04-16\" y=\"59\"></point><point x=\"2014-04-17\" y=\"59\"></point><point x=\"2014-04-18\" y=\"59\"></point><point x=\"2014-04-19\" y=\"59\"></point><point x=\"2014-04-20\" y=\"59\"></point><point x=\"2014-04-21\" y=\"59\"></point><point x=\"2014-04-22\" y=\"59\"></point><point x=\"2014-04-23\" y=\"59\"></point><point x=\"2014-04-24\" y=\"59\"></point></graph></graphs></chart>"));
+                        so.write("flashcontent3");
+                    </script>
+                    <div class="clear box">
+                        <!-- -->
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="ScaleBox icon_bigest left">
+                        <div class="scalemenu box">
+                            <span>新Bug数量走势图</span>
+                        </div>
+                        <div class="clear box">
+                            <!-- -->
+                        </div>
+                        <div id="flashcontent4">
+                            <strong>You need to upgrade your Flash Player</strong>
+                        </div>
+                        <script type="text/javascript">
+                            var so = new SWFObject("amxy.swf", "amxy", "800", "300", "8", "#FFFFFF");
+                            
+                            so.addVariable("settings_file", encodeURIComponent("amxy_settings.xml"));
+                            so.addVariable("chart_data", encodeURIComponent("<chart><graphs><graph gid=\"0\"><point x=\"2014-01-01\" y=\"0\"></point><point x=\"2014-01-02\" y=\"0\"></point><point x=\"2014-01-03\" y=\"1\"></point><point x=\"2014-01-04\" y=\"0\"></point><point x=\"2014-01-05\" y=\"0\"></point><point x=\"2014-01-06\" y=\"0\"></point><point x=\"2014-01-07\" y=\"0\"></point><point x=\"2014-01-08\" y=\"0\"></point><point x=\"2014-01-09\" y=\"0\"></point><point x=\"2014-01-10\" y=\"0\"></point><point x=\"2014-01-11\" y=\"0\"></point><point x=\"2014-01-12\" y=\"0\"></point><point x=\"2014-01-13\" y=\"0\"></point><point x=\"2014-01-14\" y=\"0\"></point><point x=\"2014-01-15\" y=\"0\"></point><point x=\"2014-01-16\" y=\"0\"></point><point x=\"2014-01-17\" y=\"0\"></point><point x=\"2014-01-18\" y=\"3\"></point><point x=\"2014-01-19\" y=\"1\"></point><point x=\"2014-01-20\" y=\"24\"></point><point x=\"2014-01-21\" y=\"0\"></point><point x=\"2014-01-22\" y=\"0\"></point><point x=\"2014-01-23\" y=\"0\"></point><point x=\"2014-01-24\" y=\"0\"></point><point x=\"2014-01-25\" y=\"0\"></point><point x=\"2014-01-26\" y=\"0\"></point><point x=\"2014-01-27\" y=\"0\"></point><point x=\"2014-01-28\" y=\"0\"></point><point x=\"2014-01-29\" y=\"0\"></point><point x=\"2014-01-30\" y=\"0\"></point><point x=\"2014-01-31\" y=\"0\"></point><point x=\"2014-02-01\" y=\"0\"></point><point x=\"2014-02-02\" y=\"0\"></point><point x=\"2014-02-03\" y=\"0\"></point><point x=\"2014-02-04\" y=\"0\"></point><point x=\"2014-02-05\" y=\"0\"></point><point x=\"2014-02-06\" y=\"0\"></point><point x=\"2014-02-07\" y=\"0\"></point><point x=\"2014-02-08\" y=\"0\"></point><point x=\"2014-02-09\" y=\"0\"></point><point x=\"2014-02-10\" y=\"0\"></point><point x=\"2014-02-11\" y=\"0\"></point><point x=\"2014-02-12\" y=\"0\"></point><point x=\"2014-02-13\" y=\"0\"></point><point x=\"2014-02-14\" y=\"0\"></point><point x=\"2014-02-15\" y=\"0\"></point><point x=\"2014-02-16\" y=\"0\"></point><point x=\"2014-02-17\" y=\"0\"></point><point x=\"2014-02-18\" y=\"0\"></point><point x=\"2014-02-19\" y=\"0\"></point><point x=\"2014-02-20\" y=\"0\"></point><point x=\"2014-02-21\" y=\"0\"></point><point x=\"2014-02-22\" y=\"0\"></point><point x=\"2014-02-23\" y=\"0\"></point><point x=\"2014-02-24\" y=\"0\"></point><point x=\"2014-02-25\" y=\"0\"></point><point x=\"2014-02-26\" y=\"0\"></point><point x=\"2014-02-27\" y=\"0\"></point><point x=\"2014-02-28\" y=\"0\"></point><point x=\"2014-03-01\" y=\"0\"></point><point x=\"2014-03-02\" y=\"0\"></point><point x=\"2014-03-03\" y=\"0\"></point><point x=\"2014-03-04\" y=\"0\"></point><point x=\"2014-03-05\" y=\"0\"></point><point x=\"2014-03-06\" y=\"0\"></point><point x=\"2014-03-07\" y=\"0\"></point><point x=\"2014-03-08\" y=\"0\"></point><point x=\"2014-03-09\" y=\"2\"></point><point x=\"2014-03-10\" y=\"0\"></point><point x=\"2014-03-11\" y=\"0\"></point><point x=\"2014-03-12\" y=\"0\"></point><point x=\"2014-03-13\" y=\"0\"></point><point x=\"2014-03-14\" y=\"0\"></point><point x=\"2014-03-15\" y=\"0\"></point><point x=\"2014-03-16\" y=\"0\"></point><point x=\"2014-03-17\" y=\"0\"></point><point x=\"2014-03-18\" y=\"0\"></point><point x=\"2014-03-19\" y=\"0\"></point><point x=\"2014-03-20\" y=\"0\"></point><point x=\"2014-03-21\" y=\"0\"></point><point x=\"2014-03-22\" y=\"0\"></point><point x=\"2014-03-23\" y=\"0\"></point><point x=\"2014-03-24\" y=\"0\"></point><point x=\"2014-03-25\" y=\"0\"></point><point x=\"2014-03-26\" y=\"0\"></point><point x=\"2014-03-27\" y=\"0\"></point><point x=\"2014-03-28\" y=\"0\"></point><point x=\"2014-03-29\" y=\"0\"></point><point x=\"2014-03-30\" y=\"0\"></point><point x=\"2014-03-31\" y=\"0\"></point><point x=\"2014-04-01\" y=\"0\"></point><point x=\"2014-04-02\" y=\"0\"></point><point x=\"2014-04-03\" y=\"0\"></point><point x=\"2014-04-04\" y=\"0\"></point><point x=\"2014-04-05\" y=\"0\"></point><point x=\"2014-04-06\" y=\"0\"></point><point x=\"2014-04-07\" y=\"0\"></point><point x=\"2014-04-08\" y=\"0\"></point><point x=\"2014-04-09\" y=\"0\"></point><point x=\"2014-04-10\" y=\"0\"></point><point x=\"2014-04-11\" y=\"0\"></point><point x=\"2014-04-12\" y=\"0\"></point><point x=\"2014-04-13\" y=\"0\"></point><point x=\"2014-04-14\" y=\"0\"></point><point x=\"2014-04-15\" y=\"0\"></point><point x=\"2014-04-16\" y=\"0\"></point><point x=\"2014-04-17\" y=\"0\"></point><point x=\"2014-04-18\" y=\"0\"></point><point x=\"2014-04-19\" y=\"0\"></point><point x=\"2014-04-20\" y=\"0\"></point><point x=\"2014-04-21\" y=\"0\"></point><point x=\"2014-04-22\" y=\"0\"></point><point x=\"2014-04-23\" y=\"0\"></point><point x=\"2014-04-24\" y=\"0\"></point></graph></graphs></chart>"));
+                            so.write("flashcontent4");
+                        </script>
+                    </div>
+                    <div class="clear box">
+                        <!-- -->
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="PageTop BiggestFont Black">
+                        各模块Bug分布比例图
+                    </div>
+                    <br/>
+                    <div id="flashcontent6">
+                        <strong>You need to upgrade your Flash Player</strong>
+                    </div>
+                    <script type="text/javascript">
+                        
+                        var so = new SWFObject("amcolumn.swf", "amcolumn", "600", "500", "8", "#FFFFFF");
+                        
+                        so.addVariable("chart_settings", encodeURIComponent("<settings><type>bar</type><data_type>csv</data_type><font>Tahoma</font><depth>10</depth><angle>45</angle><column><type>stacked</type><width>50</width><spacing>0</spacing><grow_time>1</grow_time><grow_effect>regular</grow_effect><balloon_text><![CDATA[{title}:{value}]]></balloon_text></column><graphs><graph gid=\"0\"><title>已解决</title><color>#ADD981</color></graph><graph gid=\"1\"><title>待审核</title><color>#AD81D9</color></graph><graph gid=\"2\"><title>未修复</title><color>#FEC514</color></graph></graphs></settings>"));
+                        so.addVariable("chart_data", encodeURIComponent("一期web项目;2;0;3\n二期web项目;2;0;24\nios手机终端项目;0;0;0\nandroid手机终端项目;0;0;0"));
+                        so.addVariable("preloader_color", "#999999");
+                        so.write("flashcontent6");
+                    </script>
+                    <div class="clear box">
+                        <!-- -->
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="PageTop BiggestFont Black">
+                        开发人员Bug分配情况
+                    </div>
+                    <br/>
+                    <div id="flashcontent7">
+                        <strong>You need to upgrade your Flash Player</strong>
+                    </div>
+                    <script type="text/javascript">
+                        var so = new SWFObject("amcolumn.swf", "amcolumn", "600", "500", "8", "#FFFFFF");
+                        so.addVariable("chart_settings", encodeURIComponent("<settings><type>bar</type><data_type>csv</data_type><font>Tahoma</font><depth>10</depth><angle>45</angle><column><type>stacked</type><width>50</width><spacing>0</spacing><grow_time>1</grow_time><grow_effect>regular</grow_effect><balloon_text><![CDATA[{title}:{value}]]></balloon_text></column><graphs><graph gid=\"0\"><title>已解决</title><color>#ADD981</color></graph><graph gid=\"1\"><title>待审核</title><color>#AD81D9</color></graph><graph gid=\"2\"><title>未修复</title><color>#FEC514</color></graph></graphs></settings>"));
+                        so.addVariable("chart_data", encodeURIComponent("杜如鑫;0;0;2\n高广金;1;0;19\n赵森;3;0;6"));
+                        so.addVariable("preloader_color", "#999999");
+                        so.write("flashcontent7");
+                    </script>
+                    <div class="clear box">
+                        <!-- -->
+                    </div>
+                    <br/>
+                    <br/>
+                </div>
+                <!--end of solution-->
+            </div>
+            <div class="clear">
+                <!-- -->
+            </div>
+        </div>
+        <!-- start of content -->
+        <div class="clear">
+            <!-- -->
+        </div>
+        <br/>
+        </div>
+        <!-- end of wrapper-->
+        <div class="Footer">
+            <span class="left copyright">版权所有
+                2010 EasyBug.net</span>
+            <span class="left"><a href="/Home/Law" target="_blank"> 法律声明</a> | <a href="/Home/Service" target="_blank">服务条款</a> | <a href="/Home/Privacy" target="_blank">隐私声明</a> | <a href="/Home/Contact" target="_blank">联系我们</a> | <a href="http://www.miibeian.gov.cn">粤ICP备11037681号</a></span>
+            <span class="right"><a href="http://sighttp.qq.com/cgi-bin/check?sigkey=c31f5d664c1c41afe867cda8c2549066727ac65a490d8995cabbb1db885893b4";  target=_blank;  onclick="var tempSrc='http://sighttp.qq.com/wpa.js?rantime='+Math.random()+'&sigkey=c31f5d664c1c41afe867cda8c2549066727ac65a490d8995cabbb1db885893b4';var oldscript=document.getElementById('testJs');var newscript=document.createElement('script');newscript.setAttribute('type','text/javascript'); newscript.setAttribute('id', 'testJs');newscript.setAttribute('src',tempSrc);if(oldscript == null){document.body.appendChild(newscript);}else{oldscript.parentNode.replaceChild(newscript, oldscript);}return false;"><img border="0" SRC='http://wpa.qq.com/pa?p=1:108275149:42' alt="在线QQ咨询"></a></span>
+        </div>
+        <div style="display:none;">
+        </div>
+    </body>
+</html>

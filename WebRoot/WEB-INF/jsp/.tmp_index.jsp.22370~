@@ -1,0 +1,55 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8" %>
+<%@ include file="/common/tagslib.jsp" %>
+<%@ include file="/common/header.jsp" %>
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <title>Bug_V101</title>
+        <script type="text/javascript">
+            $(document).ready(function(){
+				$("#projectUser").val("${userRole.id}");
+            })
+			
+			function changeProject(){
+				var id=$("#projectUser").val();
+				winload("${path}/main/changeRole/save.do?id=" + id);
+			}
+			
+        </script>
+		 
+    </head>
+    <body>
+        <div id="main-div" class="width-p100">
+            <t:Top>
+            </t:Top>
+            <div class="content">
+				 <div class="SubHeader">
+	                 <span class="left"><img src="${path}/themes/images/dog.png" class="BlueBorder icon_biger user-logo-define" />
+                     <select class="Select" onchange="changeProject();" id="projectUser">
+                         <c:forEach var="item" items='${projectUserList}' varStatus="s">
+                             <option value="${item.id}">${item.project.name}</option>
+                         </c:forEach>
+                     </select>
+	                 </span>
+				     <t:Menu>
+                     </t:Menu>
+                       <div class="Contents">
+                           <div class="Right Sub Sar">
+                               <div class="Bugicon Midbox">
+                                	   项目概况
+                               </div>
+                               <div class="SearchBox">
+                               	 <img src="${path}/themes/images/line.gif" class="SLine" /><a class="bugs-unfix" href="javascript:SubForm(1)">未修复的Bug数:<span class="num">2</span></a>
+                                       <img src="${path}/themes/images/line.gif" class="SLine" /><a class="bugs-approval" href="javascript:SubForm(2)">待审核的Bug数:<span class="num">0</span></a>
+                                       <img src="${path}/themes/images/line.gif" class="SLine" /><a href="javascript:SubForm(3)" class="bugs-fix">已解决的Bug数:<span class="num">0</span></a>
+                                       <img src="${path}/themes/images/line.gif" class="SLine" />
+                                  <a href="http://www.easybug.net/Bug/AddBug/10853/0" class="button-create" style="margin-top: 10px;"><span>提交新Bug</span></a>
+                                 </div>
+                           </div>
+                       </div>
+                   </div>
+            </div>
+				<t:Footer></t:Footer>
+        </div>
+    </body>
+</html>

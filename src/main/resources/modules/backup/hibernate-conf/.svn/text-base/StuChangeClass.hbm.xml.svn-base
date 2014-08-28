@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.hejun.student.entity">
+	<class name="StuChangeClass" table="stu_change_class">
+
+		<id name="id" column="id" type="java.lang.String">
+			<generator class="uuid.hex"></generator>
+		</id>
+		
+		<property name="changeInBillNO" column="change_in_bill_no" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="200">
+		</property>
+		
+		<property name="changeOutBillNO" column="change_out_bill_no" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="200">
+		</property>
+		
+		<property name="changeInTmClassStuId" column="change_in_tm_class_stu_id" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="32">
+		</property>
+		
+		<property name="changeOutTmClassStuId" column="change_out_tm_class_stu_id" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="32">
+		</property>
+		
+		<property name="unitAllCount" column="unit_all_count" update="true"
+			insert="true" type="java.lang.Integer" not-null="false" unique="false"
+			length="22">
+		</property>
+		<property name="unitAllRemainCount" column="unit_all_remain_count" update="true"
+			insert="true" type="java.lang.Integer" not-null="false" unique="false"
+			length="22">
+		</property>
+		
+		<property name="allHappenFee" column="all_happen_fee" update="true"
+			insert="true" type="java.lang.Double" not-null="false" unique="false"
+			length="22">
+		</property>
+		<property name="allPayFee" column="all_pay_fee" update="true"
+			insert="true" type="java.lang.Double" not-null="false" unique="false"
+			length="22">
+		</property>
+		
+		<property name="changeFee" column="change_fee" update="true"
+			insert="true" type="java.lang.Double" not-null="false" unique="false"
+			length="22">
+		</property>
+		
+		<property name="changeDate" column="change_date"
+			update="true" insert="true" type="java.util.Date" not-null="false"
+			unique="false" length="0">
+		</property>
+		
+		<property name="changeReason" column="change_reason" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="200">
+		</property>
+		
+		<property name="changeMemo" column="change_memo" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="200">
+		</property>
+		
+		<property name="stuEnrollIdStr" column="stu_enroll_id_str" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="200">
+		</property>
+		
+		<property name="flag" column="flag" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="1">
+		</property>
+		
+		<property name="typeCode" column="type_code" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="10">
+		</property>
+		
+		<property name="stepStr" column="step_str" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="10">
+		</property>
+		
+		<property name="payTypeCode" column="pay_type_code" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="100">
+		</property>
+		
+		<property name="status" column="status" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="100">
+		</property>
+
+		<!-- Many-To-One attributes -->
+		
+		<many-to-one name="stuBaseInfo" not-null="false" update="true" insert="true" cascade="none" lazy="false">
+			<column name="stu_base_info" />
+		</many-to-one>
+		
+		<many-to-one name="changeUser" not-null="false" update="true" insert="true" cascade="none" lazy="false">
+			<column name="change_user" />
+		</many-to-one>
+		
+		<many-to-one name="changeInBiOrgan" not-null="false" update="true" insert="true" cascade="none" lazy="false">
+			<column name="change_in_bi_organ" />
+		</many-to-one>
+		
+		<many-to-one name="changeOutBiOrgan" not-null="false" update="true" insert="true" cascade="none" lazy="false">
+			<column name="change_out_bi_organ" />
+		</many-to-one>
+		
+		<many-to-one name="changeInTmClass" not-null="false" update="true" insert="true" cascade="none" lazy="false">
+			<column name="change_in_tm_class" />
+		</many-to-one>
+		
+		<many-to-one name="changeOutTmClass" not-null="false" update="true" insert="true" cascade="none" lazy="false">
+			<column name="change_out_tm_class" />
+		</many-to-one>
+		
+
+	</class>
+</hibernate-mapping>

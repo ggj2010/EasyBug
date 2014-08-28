@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.hejun.student.entity">
+	<class name="StuConsult" table="stu_consult">
+
+		<id name="id" column="id" type="java.lang.String">
+			<generator class="uuid.hex">
+			</generator>
+		</id>
+
+		<property name="extentCode" column="extent_code" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="255">
+		</property>
+		
+		<property name="subject" column="subject" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="255">
+		</property>
+
+		<property name="createDate" column="create_date" update="true"
+			insert="true" type="java.util.Date" not-null="false" unique="false"
+			length="0">
+		</property>
+
+		<property name="updateDate" column="update_date"
+			update="true" insert="true" type="java.util.Date" not-null="false"
+			unique="false" length="0">
+		</property>
+		
+		<property name="flag" column="flag" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="255">
+		</property>
+		
+		<property name="content" column="content" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="1000">
+		</property>
+		
+		<property name="lastTrackContent" column="last_track_content" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="1000">
+		</property>
+
+		<property name="isEnroll" column="is_enroll" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="255">
+		</property>
+
+		<property name="nextConTimeStr" column="next_con_time_str" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="255">
+		</property>
+
+		<!-- Many-To-One attributes -->
+		<many-to-one name="stuBaseInfo" not-null="false" update="true"
+			lazy="false" insert="true" cascade="none">
+			<column name="stu_base_info" />
+		</many-to-one>
+		
+		<many-to-one name="biOrgan" not-null="false" update="true"
+			lazy="false" insert="true" cascade="none">
+			<column name="bi_organ" />
+		</many-to-one>
+		
+		<many-to-one name="tmClass" not-null="false" update="true"
+			lazy="false" insert="true" cascade="none">
+			<column name="tm_class" />
+		</many-to-one>
+		
+		<many-to-one name="tpCourse" not-null="false" update="true"
+			lazy="false" insert="true" cascade="none">
+			<column name="tp_course" />
+		</many-to-one>
+		
+		<many-to-one name="updateUser" not-null="false" update="true"
+			lazy="false" insert="true" cascade="none">
+			<column name="update_user" />
+		</many-to-one>
+		
+		<many-to-one name="createUser" not-null="false" update="true"
+			lazy="false" insert="true" cascade="none">
+			<column name="create_user" />
+		</many-to-one>
+		
+	</class>
+</hibernate-mapping>
+

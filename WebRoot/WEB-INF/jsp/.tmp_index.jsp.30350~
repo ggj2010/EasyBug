@@ -1,0 +1,65 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8" %>
+<%@ include file="/common/tagslib.jsp" %>
+<%@ include file="/common/header.jsp" %>
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <title>Bug_V101</title>
+        <script type="text/javascript">
+            $(document).ready(function(){
+            })
+        </script>
+		 
+    </head>
+    <body>
+        <div id="main-div" class="width-p100">
+            <t:Top>
+            </t:Top>
+            <div class="content">
+				 <div class="SubHeader">
+	                 <span class="left"><img src="${path}/themes/images/dog.png" class="BlueBorder icon_biger user-logo-define" />
+                     <c:forEach var="item" items='${projectUserList}' varStatus="s">
+	                     <select class="Select" onchange="ChangePrj();">
+	                         <option value="${item.project.id}" selected='selected'>${item.project.name}</option>
+	                     </select>
+						 </c:forEach>
+	                 </span>
+				   <div class="right">
+                       <ul class="Menus">
+                   		  <li>
+                        <a href="/Project/ProjectInfo/10105" class="menu1"> 项目概况</a>
+                           </li>
+                           <li>
+                               <a href="/Bug/MyBug/10105" class="menu2">分配给我的Bug</a>
+                           </li>
+                           <li>
+                               <a href="/Bug/MyCreateBug/10105" class="menu3">我创建的Bug</a>
+                           </li>
+                           <li>
+                               <a href="/Bug/AllBug/10105" class="menu4 ">所有Bug</a>
+                           </li>
+                           <li>
+                               <a href="/Bug/BugStat/10105" class="menu5 ">Bug统计</a>
+                           </li>
+                       </ul>
+					   </div>
+                       <div class="Contents">
+                           <div class="Right Sub Sar">
+                               <div class="Bugicon Midbox">
+                                	   项目概况
+                               </div>
+                               <div class="SearchBox">
+                               	 <img src="${path}/themes/images/line.gif" class="SLine" /><a class="bugs-unfix" href="javascript:SubForm(1)">未修复的Bug数:<span class="num">2</span></a>
+                                       <img src="${path}/themes/images/line.gif" class="SLine" /><a class="bugs-approval" href="javascript:SubForm(2)">待审核的Bug数:<span class="num">0</span></a>
+                                       <img src="${path}/themes/images/line.gif" class="SLine" /><a href="javascript:SubForm(3)" class="bugs-fix">已解决的Bug数:<span class="num">0</span></a>
+                                       <img src="${path}/themes/images/line.gif" class="SLine" />
+                                  <a href="http://www.easybug.net/Bug/AddBug/10853/0" class="button-create" style="margin-top: 10px;"><span>提交新Bug</span></a>
+                                 </div>
+                           </div>
+                       </div>
+                   </div>
+            </div>
+				<t:Footer></t:Footer>
+        </div>
+    </body>
+</html>

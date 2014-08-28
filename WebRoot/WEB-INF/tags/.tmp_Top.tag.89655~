@@ -1,0 +1,126 @@
+<%@ tag pageEncoding="UTF-8" %>
+
+<div class="header">
+	<table class="header-tb" cellspacing=0 cellpadding=0>
+    <tr style="height: 82px;">
+        <td style="text-align: center" class="header-left width-p20">
+            <img width="150px" src="${path}/themes/images/logo.png" />
+        </td>
+        <td class="header-right width-p80">
+            <table>
+                <tr height="23px">
+                    <td>
+						<p style="font-size: 15px;">${user.name }<small> 欢迎回来╮(╯▽╰)╭</small></p>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr height="23px">
+                    <td>
+                       <a class="btn btn-default" href="${path}/main/modifyPassWord/view.do" style="COLOR: #fff">修改密码</a>
+                     <a class="btn btn-default" href="${path}/main/changeRole/view.do" style="COLOR: #fff">切换岗位</a>
+                     <a class="btn btn-default"  onclick="if (confirm('确定要退出吗？')) return true; else return false;" href="${path}/dologout.do" target=_top>退出系统</a>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+	</table>
+	
+	<table class="header-tb" cellspacing=0 cellpadding=0>
+    <tr height="25px" class="menu">
+        <td>
+        <div id="menu">
+             <ul class="menu">
+              <li>
+                     <a href="${path}/main/index.do" class="parent"><span>Bug导航</span></a>
+                     <div>
+                         <ul>
+                             <li>
+                                 <a href="${path}/main/bugContent/assign/list.do" ><span>未分配Bug</span></a>
+                             </li>
+                             <li>
+                                 <a href="${path}/main/bugContent/review/list.do" ><span>待审核Bug</span></a>
+                             </li>
+                             <li>
+                                 <a href="${path}/main/bugContent/createByMe/list.do"><span>我创建的Bug</span></a>
+                             </li>
+                             <li>
+                                 <a href="${path}/main/bugContent/belognToMe/list.do"><span>分配给我的Bug</span></a>
+                             </li>
+                         </ul>
+                     </div>
+                     
+                     </li>
+                 <li>
+                     <a href="${path}/dologin.do" class="parent"><span>系统应用</span></a>
+                     <div>
+                         <ul>
+                             <li>
+                                 <a href="#" ><span>组织机构</span></a>
+                             </li>
+                             <li>
+                                 <a href="${path}/main/biUserInfo/list.do"><span>员工管理</span></a>
+                             </li>
+                             <li>
+                                 <a href="#"><span>系统参数</span></a>
+                             </li>
+                             <li>
+                                 <a href="${path}/main/biRole/list.do"><span>角色设置</span></a>
+                             </li>
+                             <li>
+                                 <a href="${path}/main/biMenu/index.do"><span>按钮管理</span></a>
+                             </li>
+                         </ul>
+                     </div>
+                 </li>
+                 <li>
+                     <a href="#" class="parent"><span>项目应用</span></a>
+                     <div>
+                         <ul>
+                             <li>
+                                 <a href="${path}/main/project/index.do"><span>项目管理</span></a>
+                             </li>
+                         </ul>
+                     </div>
+                 </li>
+                 <li>
+                     <a href="#" class="parent"><span>Bug应用</span></a>
+                     <div>
+                         <ul>
+                             <li>
+                                 <a href="${path}/main/bugContent/list.do"><span>Bug管理</span></a>
+                             </li>
+                             <li>
+                                 <a href="#"><span>Bug统计</span></a>
+                             </li>
+                             <li>
+                                 <a href="#"><span>Bug报表</span></a>
+                             </li>
+                         </ul>
+                     </div>
+                 </li>
+              
+                 <li>
+                     <a href="#" class="parent"><span>系统维护</span></a>
+                      <div>
+                         <ul>
+                             <li>
+                                 <a href="${path}/main/biUserLog/list.do"><span>操作日志</span></a>
+                             </li>
+                             <li>
+                                 <a href="${path}/main/dBbackUp/list.do"><span>数据备份</span></a>
+                             </li>
+                             <li>
+                                 <a href="#"><span>升级日志</span></a>
+                             </li>
+                         </ul>
+                     </div>
+                 </li>
+             </ul>
+         </div>
+        </td>
+    </tr>
+    <a href="http://apycom.com/"></a></div>
+</table>
+</div>

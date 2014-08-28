@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.hejun.student.entity">
+	<class name="StuAccountRecord" table="stu_account_record">
+
+		<id name="id" column="id" type="java.lang.String">
+			<generator class="uuid.hex"></generator>
+		</id>
+		<property name="flag" column="flag" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="1">
+		</property>
+		
+		<property name="memo" column="memo" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="100">
+		</property>
+		
+		<property name="billId" column="bill_id" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="36">
+		</property>
+		
+		<property name="billNO" column="bill_no" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="36">
+		</property>
+		
+		<property name="billType" column="bill_type" update="true"
+			insert="true" type="java.lang.String" not-null="false" unique="false"
+			length="100">
+		</property>
+		
+		<property name="createDate" column="create_date" update="true"
+			insert="true" type="java.util.Date" not-null="false" unique="false"
+			length="0">
+		</property>
+		
+		<property name="payMoney" column="pay_money" update="true"
+			insert="true" type="java.lang.Double" not-null="false" unique="false"
+			length="22">
+		</property>
+
+		<!-- Many-To-One attributes -->
+		
+		<many-to-one name="stuBaseInfo" not-null="false" update="true" insert="true" cascade="none" lazy="false">
+			<column name="stu_base_info" />
+		</many-to-one>
+		
+		<many-to-one name="createUser" not-null="false" update="true" insert="true" cascade="none" lazy="false">
+			<column name="create_by" />
+		</many-to-one>
+		
+		<many-to-one name="stuAccount" not-null="false" update="true" insert="true" cascade="none" lazy="false">
+			<column name="stu_account" />
+		</many-to-one>
+		
+		<many-to-one name="biOrgan" not-null="false" update="true" insert="true" cascade="none" lazy="false">
+			<column name="bi_organ" />
+		</many-to-one>
+
+	</class>
+</hibernate-mapping>

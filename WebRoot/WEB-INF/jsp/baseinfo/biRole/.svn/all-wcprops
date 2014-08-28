@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/tms/!svn/ver/127/demo/public/WebRoot/WEB-INF/jsp/baseinfo/biRole
+END
+bi_role_list.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/tms/!svn/ver/127/demo/public/WebRoot/WEB-INF/jsp/baseinfo/biRole/bi_role_list.jsp
+END
+bi_role_update.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/tms/!svn/ver/127/demo/public/WebRoot/WEB-INF/jsp/baseinfo/biRole/bi_role_update.jsp
+END
+bi_role_menu.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/tms/!svn/ver/127/demo/public/WebRoot/WEB-INF/jsp/baseinfo/biRole/bi_role_menu.jsp
+END
+bi_role_add.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/tms/!svn/ver/127/demo/public/WebRoot/WEB-INF/jsp/baseinfo/biRole/bi_role_add.jsp
+END

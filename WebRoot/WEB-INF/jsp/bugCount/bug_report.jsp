@@ -1,0 +1,224 @@
+﻿<%@ page language="java" import="java.util.*" pageEncoding="utf-8" %>
+<%@ include file="/common/tagslib.jsp" %>
+<%@ include file="/common/header.jsp" %>
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <title>Bug_V101</title>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                if ("${messageCode}" == "01") {
+                    jqueryUIAlert('恭喜您操作成功！点击确定将回到上一操作页面');
+                }
+				
+				if("${bugContent.flag}" != "01"){
+					$("#flag").html("");
+				}
+				
+            })
+			
+			function doQuery(){
+				$("#flagValue").val('01');
+				$("#form").submit();
+			}
+	
+        </script>
+    </head>
+    <body>
+        <div id="main-div" class="width-p100">
+            <t:Top>
+            </t:Top>
+            <div class="content">
+                <div class="SubHeader">
+                    <div class="Contents">
+                        <div class="Right Sub Sar">
+                            <div class="Bugicon Midbox">
+                                Bug统计：
+                            </div>
+                            <div class="Solution Insert ">
+                                <form action="${path}/main/count/report/list.do" method="post" id="form">
+                                    <input type="hidden" name="project.id" value="${projectVO.project.id}">
+                                    <input type="hidden" name="flag" id="flagValue">
+                                    <table class="width-p100">
+                                        <tr>
+                                            <td>
+                                                <span class="glyphicon glyphicon-search left">查询选项</span>
+                                            </td>
+                                            <td class="center">
+                                                <table class="row">
+                                                    <tr>
+                                                        <td class="col-xs-1">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon">开始日期</span>
+                                                                <input value="${bugContent.beginDateString}" tagname="dateInputYear" name="beginDateString" id="beginDateTxt" class="form-control" type="text" maxlength="255" />
+                                                            </div>
+                                                        </td>
+                                                        <td class="col-xs-1">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon">结束日期</span>
+                                                                <input value="${bugContent.endDateString}" tagname="dateInputYear" name="endDateString" id="endDateTxt" class="form-control" type="text" maxlength="255" />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td class="td-btn">
+                                                <a class="btn btn-default" href="javaScript:doQuery()"><fmt:message key="btn.search" /></a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
+                            </div>
+                            <div class="Solution" id="flag">
+                                <div class="PageTop BiggestFont Black">
+                                    Bug
+                                    	分布比例图
+                                </div>
+                                <br/>
+                                <div class="ScaleBox icon_bigest left">
+                                    <div class="scalemenu box">
+                                        <span>优先级</span>
+                                    </div>
+                                    <div class="clear box">
+                                        <!-- -->
+                                    </div>
+                                    <div id="flashcontent">
+                                        <strong>You need to upgrade your Flash Player</strong>
+                                    </div>
+                                    <script type="text/javascript">
+                                        // <![CDATA[		
+                                        var so = new SWFObject("${path}/themes/report/ampie.swf?cache=0", "ampie", "400", "300", "8", "#ffffff");
+                                        so.addVariable("settings_file", encodeURIComponent("${path}/themes/report/ampie_settings.xml"));
+                                        so.addVariable("chart_data", encodeURIComponent("${report.levelStr}"));
+                                        so.addVariable("preloader_color", "#000000");
+                                        so.write("flashcontent");
+                                        // ]]>
+                                    </script>
+                                    <!-- end of ampie script -->
+                                </div>
+								   <div class="icon_bigest" style="width:1000px;background-color:red" >
+                                    <!-- -->
+                                </div>
+                                <div class="ScaleBox left">
+                                    <div class="scalemenu box">
+                                        <span>状态</span>
+                                    </div>
+                                    <div class="clear box">
+                                        <!-- -->
+                                    </div>
+                                    <div id="flashcontent2">
+                                        <strong>You need to upgrade your Flash Player</strong>
+                                    </div>
+                                    <script type="text/javascript">
+                                        // <![CDATA[		
+                                        var so = new SWFObject("${path}/themes/report/ampie.swf", "ampie", "400", "300", "8", "#ffffff");
+                                       
+                                        so.addVariable("settings_file", encodeURIComponent("${path}/themes/report/ampie_settings.xml"));
+                                        so.addVariable("chart_data", encodeURIComponent("${report.statusStr}"));
+                                        so.addVariable("preloader_color", "#000000");
+                                        so.write("flashcontent2");
+                                        // ]]>
+                                    </script>
+                                </div>
+                                <div class="clear box">
+                                    <!-- -->
+                                </div>
+                                <div class="PageTop BiggestFont Black">
+                                    Bug
+                                 	   走势图
+                                </div>
+                                <br/>
+                                <div class="scalemenu box">
+                                    <span>Bug总量走势图</span>
+                                </div>
+                                <div class="clear box">
+                                    <!-- -->
+                                </div>
+                                <div id="flashcontent3">
+                                    <strong>You need to upgrade your Flash Player</strong>
+                                </div>
+                                <script type="text/javascript">
+                                    var so = new SWFObject("${path}/themes/report/amxy.swf", "amxy", "800", "300", "8", "#FFFFFF");
+                                    
+                                    so.addVariable("settings_file", encodeURIComponent("${path}/themes/report/amxy_settings.xml"));
+                                    so.addVariable("chart_data", encodeURIComponent("<chart><graphs><graph gid=\"0\"><point x=\"2014-01-01\" y=\"1\"></point><point x=\"2014-01-02\" y=\"28\"></point><point x=\"2014-01-03\" y=\"29\"></point><point x=\"2014-01-04\" y=\"29\"></point><point x=\"2014-01-05\" y=\"29\"></point><point x=\"2014-01-06\" y=\"29\"></point><point x=\"2014-01-07\" y=\"29\"></point><point x=\"2014-01-08\" y=\"29\"></point><point x=\"2014-01-09\" y=\"29\"></point><point x=\"2014-01-10\" y=\"29\"></point><point x=\"2014-01-11\" y=\"29\"></point><point x=\"2014-01-12\" y=\"29\"></point><point x=\"2014-01-13\" y=\"29\"></point><point x=\"2014-01-14\" y=\"29\"></point><point x=\"2014-01-15\" y=\"29\"></point><point x=\"2014-01-16\" y=\"29\"></point><point x=\"2014-01-17\" y=\"29\"></point><point x=\"2014-01-18\" y=\"32\"></point><point x=\"2014-01-19\" y=\"33\"></point><point x=\"2014-01-20\" y=\"57\"></point><point x=\"2014-01-21\" y=\"57\"></point><point x=\"2014-01-22\" y=\"57\"></point><point x=\"2014-01-23\" y=\"57\"></point><point x=\"2014-01-24\" y=\"57\"></point><point x=\"2014-01-25\" y=\"57\"></point><point x=\"2014-01-26\" y=\"57\"></point><point x=\"2014-01-27\" y=\"57\"></point><point x=\"2014-01-28\" y=\"57\"></point><point x=\"2014-01-29\" y=\"57\"></point><point x=\"2014-01-30\" y=\"57\"></point><point x=\"2014-01-31\" y=\"57\"></point><point x=\"2014-02-01\" y=\"57\"></point><point x=\"2014-02-02\" y=\"57\"></point><point x=\"2014-02-03\" y=\"57\"></point><point x=\"2014-02-04\" y=\"57\"></point><point x=\"2014-02-05\" y=\"57\"></point><point x=\"2014-02-06\" y=\"57\"></point><point x=\"2014-02-07\" y=\"57\"></point><point x=\"2014-02-08\" y=\"57\"></point><point x=\"2014-02-09\" y=\"57\"></point><point x=\"2014-02-10\" y=\"57\"></point><point x=\"2014-02-11\" y=\"57\"></point><point x=\"2014-02-12\" y=\"57\"></point><point x=\"2014-02-13\" y=\"57\"></point><point x=\"2014-02-14\" y=\"57\"></point><point x=\"2014-02-15\" y=\"57\"></point><point x=\"2014-02-16\" y=\"57\"></point><point x=\"2014-02-17\" y=\"57\"></point><point x=\"2014-02-18\" y=\"57\"></point><point x=\"2014-02-19\" y=\"57\"></point><point x=\"2014-02-20\" y=\"57\"></point><point x=\"2014-02-21\" y=\"57\"></point><point x=\"2014-02-22\" y=\"57\"></point><point x=\"2014-02-23\" y=\"57\"></point><point x=\"2014-02-24\" y=\"57\"></point><point x=\"2014-02-25\" y=\"57\"></point><point x=\"2014-02-26\" y=\"57\"></point><point x=\"2014-02-27\" y=\"57\"></point><point x=\"2014-02-28\" y=\"57\"></point><point x=\"2014-03-01\" y=\"57\"></point><point x=\"2014-03-02\" y=\"57\"></point><point x=\"2014-03-03\" y=\"57\"></point><point x=\"2014-03-04\" y=\"57\"></point><point x=\"2014-03-05\" y=\"57\"></point><point x=\"2014-03-06\" y=\"57\"></point><point x=\"2014-03-07\" y=\"57\"></point><point x=\"2014-03-08\" y=\"57\"></point><point x=\"2014-03-09\" y=\"59\"></point><point x=\"2014-03-10\" y=\"59\"></point><point x=\"2014-03-11\" y=\"59\"></point><point x=\"2014-03-12\" y=\"59\"></point><point x=\"2014-03-13\" y=\"59\"></point><point x=\"2014-03-14\" y=\"59\"></point><point x=\"2014-03-15\" y=\"59\"></point><point x=\"2014-03-16\" y=\"59\"></point><point x=\"2014-03-17\" y=\"59\"></point><point x=\"2014-03-18\" y=\"59\"></point><point x=\"2014-03-19\" y=\"59\"></point><point x=\"2014-03-20\" y=\"59\"></point><point x=\"2014-03-21\" y=\"59\"></point><point x=\"2014-03-22\" y=\"59\"></point><point x=\"2014-03-23\" y=\"59\"></point><point x=\"2014-03-24\" y=\"59\"></point><point x=\"2014-03-25\" y=\"59\"></point><point x=\"2014-03-26\" y=\"59\"></point><point x=\"2014-03-27\" y=\"59\"></point><point x=\"2014-03-28\" y=\"59\"></point><point x=\"2014-03-29\" y=\"59\"></point><point x=\"2014-03-30\" y=\"59\"></point><point x=\"2014-03-31\" y=\"59\"></point><point x=\"2014-04-01\" y=\"59\"></point><point x=\"2014-04-02\" y=\"59\"></point><point x=\"2014-04-03\" y=\"59\"></point><point x=\"2014-04-04\" y=\"59\"></point><point x=\"2014-04-05\" y=\"59\"></point><point x=\"2014-04-06\" y=\"59\"></point><point x=\"2014-04-07\" y=\"59\"></point><point x=\"2014-04-08\" y=\"59\"></point><point x=\"2014-04-09\" y=\"59\"></point><point x=\"2014-04-10\" y=\"59\"></point><point x=\"2014-04-11\" y=\"59\"></point><point x=\"2014-04-12\" y=\"59\"></point><point x=\"2014-04-13\" y=\"59\"></point><point x=\"2014-04-14\" y=\"59\"></point><point x=\"2014-04-15\" y=\"59\"></point><point x=\"2014-04-16\" y=\"59\"></point><point x=\"2014-04-17\" y=\"59\"></point><point x=\"2014-04-18\" y=\"59\"></point><point x=\"2014-04-19\" y=\"59\"></point><point x=\"2014-04-20\" y=\"59\"></point><point x=\"2014-04-21\" y=\"59\"></point><point x=\"2014-04-22\" y=\"59\"></point><point x=\"2014-04-23\" y=\"59\"></point><point x=\"2014-04-24\" y=\"100\"></point></graph></graphs></chart>"));
+                                    so.write("flashcontent3");
+                                </script>
+                                <div class="clear box">
+                                    <!-- -->
+                                </div>
+                                <br/>
+                                <br/>
+                                <div class="ScaleBox icon_bigest left">
+                                    <div class="scalemenu box">
+                                        <span>新Bug数量走势图</span>
+                                    </div>
+                                    <div class="clear box">
+                                        <!-- -->
+                                    </div>
+                                    <div id="flashcontent4">
+                                        <strong>You need to upgrade your Flash Player</strong>
+                                    </div>
+                                    <script type="text/javascript">
+                                        var so = new SWFObject("${path}/themes/report/amxy.swf", "amxy", "800", "300", "8", "#FFFFFF");
+                                        
+                                        so.addVariable("settings_file", encodeURIComponent("${path}/themes/report/amxy_settings.xml"));
+                                        so.addVariable("chart_data", encodeURIComponent("<chart><graphs><graph gid=\"0\"><point x=\"2014-01-01\" y=\"0\"></point><point x=\"2014-01-02\" y=\"0\"></point><point x=\"2014-01-03\" y=\"1\"></point><point x=\"2014-01-04\" y=\"0\"></point><point x=\"2014-01-05\" y=\"0\"></point><point x=\"2014-01-06\" y=\"0\"></point><point x=\"2014-01-07\" y=\"0\"></point><point x=\"2014-01-08\" y=\"0\"></point><point x=\"2014-01-09\" y=\"0\"></point><point x=\"2014-01-10\" y=\"0\"></point><point x=\"2014-01-11\" y=\"0\"></point><point x=\"2014-01-12\" y=\"0\"></point><point x=\"2014-01-13\" y=\"0\"></point><point x=\"2014-01-14\" y=\"0\"></point><point x=\"2014-01-15\" y=\"0\"></point><point x=\"2014-01-16\" y=\"0\"></point><point x=\"2014-01-17\" y=\"0\"></point><point x=\"2014-01-18\" y=\"3\"></point><point x=\"2014-01-19\" y=\"1\"></point><point x=\"2014-01-20\" y=\"24\"></point><point x=\"2014-01-21\" y=\"0\"></point><point x=\"2014-01-22\" y=\"0\"></point><point x=\"2014-01-23\" y=\"0\"></point><point x=\"2014-01-24\" y=\"0\"></point><point x=\"2014-01-25\" y=\"0\"></point><point x=\"2014-01-26\" y=\"0\"></point><point x=\"2014-01-27\" y=\"0\"></point><point x=\"2014-01-28\" y=\"0\"></point><point x=\"2014-01-29\" y=\"0\"></point><point x=\"2014-01-30\" y=\"0\"></point><point x=\"2014-01-31\" y=\"0\"></point><point x=\"2014-02-01\" y=\"0\"></point><point x=\"2014-02-02\" y=\"0\"></point><point x=\"2014-02-03\" y=\"0\"></point><point x=\"2014-02-04\" y=\"0\"></point><point x=\"2014-02-05\" y=\"0\"></point><point x=\"2014-02-06\" y=\"0\"></point><point x=\"2014-02-07\" y=\"0\"></point><point x=\"2014-02-08\" y=\"0\"></point><point x=\"2014-02-09\" y=\"0\"></point><point x=\"2014-02-10\" y=\"0\"></point><point x=\"2014-02-11\" y=\"0\"></point><point x=\"2014-02-12\" y=\"0\"></point><point x=\"2014-02-13\" y=\"0\"></point><point x=\"2014-02-14\" y=\"0\"></point><point x=\"2014-02-15\" y=\"0\"></point><point x=\"2014-02-16\" y=\"0\"></point><point x=\"2014-02-17\" y=\"0\"></point><point x=\"2014-02-18\" y=\"0\"></point><point x=\"2014-02-19\" y=\"0\"></point><point x=\"2014-02-20\" y=\"0\"></point><point x=\"2014-02-21\" y=\"0\"></point><point x=\"2014-02-22\" y=\"0\"></point><point x=\"2014-02-23\" y=\"0\"></point><point x=\"2014-02-24\" y=\"0\"></point><point x=\"2014-02-25\" y=\"0\"></point><point x=\"2014-02-26\" y=\"0\"></point><point x=\"2014-02-27\" y=\"0\"></point><point x=\"2014-02-28\" y=\"0\"></point><point x=\"2014-03-01\" y=\"0\"></point><point x=\"2014-03-02\" y=\"0\"></point><point x=\"2014-03-03\" y=\"0\"></point><point x=\"2014-03-04\" y=\"0\"></point><point x=\"2014-03-05\" y=\"0\"></point><point x=\"2014-03-06\" y=\"0\"></point><point x=\"2014-03-07\" y=\"0\"></point><point x=\"2014-03-08\" y=\"0\"></point><point x=\"2014-03-09\" y=\"2\"></point><point x=\"2014-03-10\" y=\"0\"></point><point x=\"2014-03-11\" y=\"0\"></point><point x=\"2014-03-12\" y=\"0\"></point><point x=\"2014-03-13\" y=\"0\"></point><point x=\"2014-03-14\" y=\"0\"></point><point x=\"2014-03-15\" y=\"0\"></point><point x=\"2014-03-16\" y=\"0\"></point><point x=\"2014-03-17\" y=\"0\"></point><point x=\"2014-03-18\" y=\"0\"></point><point x=\"2014-03-19\" y=\"0\"></point><point x=\"2014-03-20\" y=\"0\"></point><point x=\"2014-03-21\" y=\"0\"></point><point x=\"2014-03-22\" y=\"0\"></point><point x=\"2014-03-23\" y=\"0\"></point><point x=\"2014-03-24\" y=\"0\"></point><point x=\"2014-03-25\" y=\"0\"></point><point x=\"2014-03-26\" y=\"0\"></point><point x=\"2014-03-27\" y=\"0\"></point><point x=\"2014-03-28\" y=\"0\"></point><point x=\"2014-03-29\" y=\"0\"></point><point x=\"2014-03-30\" y=\"0\"></point><point x=\"2014-03-31\" y=\"0\"></point><point x=\"2014-04-01\" y=\"0\"></point><point x=\"2014-04-02\" y=\"0\"></point><point x=\"2014-04-03\" y=\"0\"></point><point x=\"2014-04-04\" y=\"0\"></point><point x=\"2014-04-05\" y=\"0\"></point><point x=\"2014-04-06\" y=\"0\"></point><point x=\"2014-04-07\" y=\"0\"></point><point x=\"2014-04-08\" y=\"0\"></point><point x=\"2014-04-09\" y=\"0\"></point><point x=\"2014-04-10\" y=\"0\"></point><point x=\"2014-04-11\" y=\"0\"></point><point x=\"2014-04-12\" y=\"0\"></point><point x=\"2014-04-13\" y=\"0\"></point><point x=\"2014-04-14\" y=\"0\"></point><point x=\"2014-04-15\" y=\"0\"></point><point x=\"2014-04-16\" y=\"0\"></point><point x=\"2014-04-17\" y=\"0\"></point><point x=\"2014-04-18\" y=\"0\"></point><point x=\"2014-04-19\" y=\"0\"></point><point x=\"2014-04-20\" y=\"0\"></point><point x=\"2014-04-21\" y=\"0\"></point><point x=\"2014-04-22\" y=\"0\"></point><point x=\"2014-04-23\" y=\"0\"></point><point x=\"2014-04-24\" y=\"0\"></point></graph></graphs></chart>"));
+                                        so.write("flashcontent4");
+                                    </script>
+                                </div>
+                                <div class="clear box">
+                                    <!-- -->
+                                </div>
+                                <br/>
+                                <br/>
+                                <div class="PageTop BiggestFont Black">
+                              	      各模块Bug分布比例图
+                                </div>
+                                <br/>
+                                <div id="flashcontent6">
+                                    <strong>You need to upgrade your Flash Player</strong>
+                                </div>
+                                <script type="text/javascript">
+                                    var so = new SWFObject("${path}/themes/report/amcolumn.swf", "amcolumn", "600", "500", "8", "#FFFFFF");
+                                    so.addVariable("chart_settings", encodeURIComponent("<settings><type>bar</type><data_type>csv</data_type><font>Tahoma</font><depth>10</depth><angle>45</angle><column><type>stacked</type><width>50</width><spacing>0</spacing><grow_time>1</grow_time><grow_effect>regular</grow_effect><balloon_text><![CDATA[{title}:{value}]]></balloon_text></column><graphs><graph gid=\"0\"><title>已解决</title><color>#ADD981</color></graph><graph gid=\"1\"><title>待审核</title><color>#AD81D9</color></graph><graph gid=\"2\"><title>未修复</title><color>#FEC514</color></graph></graphs></settings>"));
+                                    so.addVariable("chart_data", encodeURIComponent("一期项目;2;0;3\n二期项目;2;0;24\三期项目;0;0;0\nandroid手机终端项目;0;0;0"));
+                                    so.addVariable("preloader_color", "#999999");
+                                    so.write("flashcontent6");
+                                </script>
+                                <div class="clear box">
+                                    <!-- -->
+                                </div>
+                                <br/>
+                                <br/>
+                                <div class="PageTop BiggestFont Black">
+                                    开发人员Bug分配情况
+                                </div>
+                                <br/>
+                                <div id="flashcontent7">
+                                    <strong>You need to upgrade your Flash Player</strong>
+                                </div>
+                                <script type="text/javascript">
+                                    
+                                    var so = new SWFObject("${path}/themes/report/amcolumn.swf", "amcolumn", "600", "500", "8", "#FFFFFF");
+                                    
+                                    so.addVariable("chart_settings", encodeURIComponent("<settings><type>bar</type><data_type>csv</data_type><font>Tahoma</font><depth>10</depth><angle>45</angle><column><type>stacked</type><width>50</width><spacing>0</spacing><grow_time>1</grow_time><grow_effect>regular</grow_effect><balloon_text><![CDATA[{title}:{value}]]></balloon_text></column><graphs><graph gid=\"0\"><title>已解决</title><color>#ADD981</color></graph><graph gid=\"1\"><title>待审核</title><color>#AD81D9</color></graph><graph gid=\"2\"><title>未修复</title><color>#FEC514</color></graph></graphs></settings>"));
+                                    so.addVariable("chart_data", encodeURIComponent("杨培栋;0;0;2\n高广金;1;0;19\n赵春晖;3;0;6"));
+                                    so.addVariable("preloader_color", "#999999");
+                                    so.write("flashcontent7");
+                                </script>
+                            </div>
+							
+                        </div>
+                    </div>
+                </div>
+				
+				
+				
+				
+            </div>
+            <t:Footer>
+            </t:Footer>
+        </div>
+    </body>
+</html>

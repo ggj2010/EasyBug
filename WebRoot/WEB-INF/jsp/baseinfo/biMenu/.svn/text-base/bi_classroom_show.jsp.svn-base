@@ -1,0 +1,131 @@
+﻿<%@ page language="java" import="java.util.*" pageEncoding="utf-8" %>
+<%@ include file="/common/tagslib.jsp" %>
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!--
+模块名：		module添加页面
+说明：		module添加页面
+编写者：     	<author>
+编写日期：	<2012/5/20>
+修改信息：
+-->
+<html>
+    <head>
+        <%@ include file="/common/header.jsp" %>
+    </head>
+    <body>
+    <div id="main-div" class="width-p100">
+        <t:Top></t:Top>
+        <div class="content main-page-190">
+            <div class="title">
+                <table class="title-tb" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td class="td-left">
+                        </td>
+                        <td class="td-title">
+                            <fmt:message key="biClassRoom.table_title" /><fmt:message key="btn.show" />
+                        </td>
+                        <td class="td-btn">
+                        </td>
+                        <td class="td-right">
+                            <a href="javascript:back();" class="btn2 btn-small"><fmt:message key="btn.back" /></a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="margin-lr-1">
+                <div class="main-page-270 over-flow-x-hidden">
+                    <table class="add-tb">
+                    	<tr>
+							<td class="td-title" colspan="4">
+								<font size=2 color="black"> <i class=" icon-chevron-down"></i> 
+								<strong>教室信息</strong>&nbsp;&nbsp;&nbsp; </font>
+							</td>
+						</tr>
+                        <tr>
+                            <td class="ltd2">
+                                <fmt:message key="biClassRoom.name" />
+                            </td>
+                            <td class="rtd2">
+                                ${biClassRoom.name} 
+                            </td>
+                        </tr>
+						<tr>
+                            <td class="ltd2">
+                                <fmt:message key="biClassRoom.biOrgan" />
+                            </td>
+                            <td class="rtd2">
+                                ${biClassRoom.biOrgan} 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ltd2">
+                                <fmt:message key="biClassRoom.stuNum" />
+                            </td>
+                            <td class="rtd2">
+                                ${biClassRoom.stuNum} 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ltd2">
+                                <fmt:message key="biClassRoom.maxNum" />
+                            </td>
+                            <td class="rtd2">
+                                ${biClassRoom.maxNum} 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ltd2">
+                                <fmt:message key="biClassRoom.area" />
+                            </td>
+                            <td class="rtd2">
+                                ${biClassRoom.area} 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ltd2">
+                                <fmt:message key="biClassRoom.memo" />
+                            </td>
+                            <td class="rtd2">
+                                ${biClassRoom.memo} 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ltd2">
+                                <fmt:message key="biClassRoom.createDate" />
+                            </td>
+                            <td class="rtd2">
+                                ${biClassRoom.createDateString}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ltd2">
+                                <fmt:message key="biClassRoom.updateDate" />
+                            </td>
+                            <td class="rtd2">
+                                ${biClassRoom.updateDateString}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ltd2">
+                                <fmt:message key="biClassRoom.updateUser" />
+                            </td>
+                            <td class="rtd2">
+                                ${biClassRoom.updateUser.cnName}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ltd2">
+                                <fmt:message key="biClassRoom.createUser" />
+                            </td>
+                            <td class="rtd2">
+                                ${biClassRoom.createUser.cnName} 
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <t:Footer></t:Footer>
+    </div>
+</body>
+</html>

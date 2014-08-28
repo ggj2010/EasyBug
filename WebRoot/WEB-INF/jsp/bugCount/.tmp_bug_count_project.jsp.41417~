@@ -1,0 +1,262 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8" %>
+<%@ include file="/common/tagslib.jsp" %>
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!--
+模块名：	module查询列表页面
+说明：		module查询列表页面
+编写者：     	<author>
+编写日期：	<2012/5/20>
+修改信息：
+-->
+<html>
+    <head>
+        <%@ include file="/common/header.jsp" %>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                initPage();
+				initSortField();
+            });
+			
+			
+            function onSortClick(sortStr){
+                doQuery();
+            }
+            function initPage(){
+            }
+			
+			function open(flag){
+				var paramsStr=getSearchParam();
+				if(paramsStr!=""){paramsStr="?"+paramsStr.substring(1,paramsStr.length);}
+				if(flag=='organ'){winload('${path}/main/report/stu/organ.do'+paramsStr)}
+				if(flag=='status'){winload('${path}/main/report/stu/status.do'+paramsStr)}
+				if(flag=='is_new'){winload('${path}/main/report/stu/isnew.do'+paramsStr)}
+				if(flag=='grade'){winload('${path}/main/report/stu/grade.do'+paramsStr)}
+				if(flag=='subject'){winload('${path}/main/report/stu/subject.do'+paramsStr)}
+				if(flag=='classType'){winload('${path}/main/report/stu/classType.do'+paramsStr)}
+				if(flag=='infoFrom'){winload('${path}/main/report/stu/infofrom.do'+paramsStr)}
+				if(flag=='govSchool'){winload('${path}/main/report/stu/govSchool.do'+paramsStr)}
+			}
+			
+			function view(id){
+				var courseCode="${tmClassStuVO.tpCourseCode}";
+				var govSchool="${tmClassStuVO.govSchool}";
+				var infoFrom="${tmClassStuVO.infoFrom}";
+				var biOrganId="${tmClassStuVO.biOrganId}";
+				var classType="${tmClassStuVO.classType}";
+				var subject="${tmClassStuVO.subject}";
+				var govGrade="${tmClassStuVO.govGrade}";
+				
+				var params="?biOrganId="+id;
+				params+="&tpCourseCode="+courseCode;
+				params+="&govSchool="+govSchool;
+				params+="&infoFrom="+infoFrom;
+				params+="&classType="+classType;
+				params+="&subject="+subject;
+				params+="&govGrade="+govGrade;
+				
+                winload("${path}/main/report/stu/show.do" + params);
+            }
+            
+            function doQuery(){
+                $('#form1').submit();
+            }
+        </script>
+		<style>
+			.tabs-btn{width:60px; height:30px;margin:2px;line-height:30px; display:block;float:left;border:solid 1px green;text-align:center; background:green; color:white;}
+			.tabs-btn-current{width:60px; height:30px;margin:2px;line-height:30px;display:block;float:left;border:solid 1px red; background:red; color:white;text-align:center;}
+		</style>
+    </head>
+    <body>
+        <div id="main-div" class="width-p100">
+            <t:Top>
+            </t:Top>
+            <div class="content main-page-190">
+                <div class="title">
+                    <table class="title-tb" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td class="td-left">
+                            </td>
+                            <td class="td-title">
+                               	在校生统计
+                            </td>
+                            <td class="td-btn">
+                            </td>
+                            <td class="td-right">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="margin-lr-1">
+                	<form id="form1" action="${path}/main/report/stu/organ.do" method="get">
+                		  <table class="search-tb width-p100">
+                    <tr>
+                        <td>
+                            <span class="glyphicon glyphicon-search left">查询选项</span>
+                        </td>
+                        <td>
+                            <table class="row">
+                                <tr>
+                                    <td>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">模块</span>
+                                            <select class="form-control" name="projectModule.id" id="module">
+                                                <option value="">--全部--</option>
+                                                <c:forEach var="item" items='${projectVO.moduleList}' varStatus="s">
+                                                    <option value="${item.id}">${item.name}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">分配人</span>
+                                            <select class="form-control" name="userAssigner.id" id="assinger">
+                                                <option value="">--全部--</option>
+                                                <c:forEach var="item" items='${projectVO.userList}' varStatus="s">
+                                                    <option value="${item.id}">${item.name}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">版本</span>
+                                            <select class="form-control" name="projectVersion.id" id="version">
+                                                <option value="">--全部--</option>
+                                                <c:forEach var="item" items='${projectVO.versionList}' varStatus="s">
+                                                    <option value="${item.id}">${item.name}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">优先级</span>
+                                            <select class="form-control" name="level" id="level">
+                                                <option value="">全部</option>
+                                                <option value="01">低</option>
+                                                <option value="02">中</option>
+                                                <option value="03">高</option>
+                                                <option value="04">紧急</option>
+                                                <option value="05">严重</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">状态</span>
+                                            <select class="form-control" name="status" id="status">
+                                                <option value="">--全部--</option>
+                                                <option value="new">新录入</option>
+                                                <option value="open">已打开</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">处理人</span>
+                                            <select class="form-control" name="userHandler.id" id="handler">
+                                                <option value="">--全部--</option>
+                                                <c:forEach var="item" items='${projectVO.userList}' varStatus="s">
+                                                    <option value="${item.id}">${item.name}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td colspan="2">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">关键字</span>
+                                            <input id="titleText" class="form-control" name="name" type="text" id="title">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <a class="btn btn-default btn-lg " role="button" href="javaScript:doQuery()"><fmt:message key="btn.search"/></a>
+                        </td>
+                    </tr>
+                </table>
+				</form>
+                <div class="main-page-290 over-flow-x-hidden">
+                	<table class="add-tb">
+                		<tr>
+							<td class="td-title" colspan="2">
+								<font size=2 color="black"> <i class=" icon-chevron-down"></i> 
+								<strong>汇总</strong>&nbsp;&nbsp;&nbsp; </font>
+							</td>
+						</tr>
+                		<tr>
+							<td class="ltd2" colspan="2">
+								<div class="margin-lr-1">
+									<div class="left">
+									<a class="btn btn-danger" href="javaScript:open('organ');" >校区</a>
+									<a class="btn btn-default" href="javaScript:open('status');" >学生状态</a>
+									<a class="btn btn-default" href="javaScript:open('is_new');" >新生/老生</a>
+									<a class="btn btn-default" href="javaScript:open('grade');" >年级</a>
+									<a class="btn btn-default" href="javaScript:open('subject');" >科目</a>
+									<a class="btn btn-default" href="javaScript:open('classType');" >班型</a>
+									<a class="btn btn-default" href="javaScript:open('infoFrom');" >信息来源 </a>
+									<a class="btn btn-default" href="javaScript:open('govSchool');" >公立学校</a>
+									</div>
+									<c:if test='${fn:length(sumList)<1}'>
+				                        <div class="no-data-div">
+				                            <fmt:message key="msg.no_data" />
+				                        </div>
+				                    </c:if>
+				                    <c:if test='${fn:length(sumList)>0}'>
+				                        <table class="list-tb" width="100%">
+				                            <thead>
+				                                <tr>
+													<th> 
+                                                    	<span id="biOrganNameTitle">项目</span>
+													</a>
+													</th>
+													<th id="numberTh"> 
+													<span id="numberTitle">Bug总数</span>
+													</a>
+				                                    </th>
+				                                    <th>
+				                                        <fmt:message key="list.columns.do" />
+				                                    </th>
+				                                </tr>
+				                            </thead>
+				                            <tbody>
+				                                <c:forEach var="item" items='${sumList}' varStatus="s">
+				                                    <tr>
+														<td>
+															${item[1]}
+				                                        </td>
+														<td>
+															${item[2]}
+				                                        </td>
+				                                        <td class="width-p10">
+				                                        	<a class="btn btn-default" href="javascript:view('${item[0]}');">明细</a>
+				                                        </td>
+				                                    </tr>
+				                                </c:forEach>
+												<tr>
+														<td colspan="3" class="width-p10">
+															<font size="3" weight="800">总计BUG&nbsp;&nbsp;${sum}&nbsp;&nbsp;数量</font>
+														</td>
+													</tr>
+				                            </tbody>
+				                        </table>
+				                    </c:if>
+								</div>
+							</td>
+						</tr>
+                	</table>
+                </div>
+                </td>
+            </tr>
+            </table>
+        </div>
+        </div>
+        <t:Footer>
+        </t:Footer>
+    </div>
+    </body>
+</html>

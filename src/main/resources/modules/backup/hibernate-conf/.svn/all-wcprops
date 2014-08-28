@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/tms/!svn/ver/161/demo/public/src/main/resources/modules/student/hibernate-conf
+END
+StuEarnest.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/tms/!svn/ver/127/demo/public/src/main/resources/modules/student/hibernate-conf/StuEarnest.hbm.xml
+END
+StuLeaveClass.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/tms/!svn/ver/158/demo/public/src/main/resources/modules/student/hibernate-conf/StuLeaveClass.hbm.xml
+END
+StuBaseInfo.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/tms/!svn/ver/127/demo/public/src/main/resources/modules/student/hibernate-conf/StuBaseInfo.hbm.xml
+END
+StuConsultProcess.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/tms/!svn/ver/127/demo/public/src/main/resources/modules/student/hibernate-conf/StuConsultProcess.hbm.xml
+END
+StuConsult.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/tms/!svn/ver/127/demo/public/src/main/resources/modules/student/hibernate-conf/StuConsult.hbm.xml
+END
+StuAccountRecord.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/tms/!svn/ver/158/demo/public/src/main/resources/modules/student/hibernate-conf/StuAccountRecord.hbm.xml
+END
+StuChangeClass.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/tms/!svn/ver/127/demo/public/src/main/resources/modules/student/hibernate-conf/StuChangeClass.hbm.xml
+END
+StuEnroll.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/tms/!svn/ver/161/demo/public/src/main/resources/modules/student/hibernate-conf/StuEnroll.hbm.xml
+END
+StuStopClass.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/tms/!svn/ver/127/demo/public/src/main/resources/modules/student/hibernate-conf/StuStopClass.hbm.xml
+END
+StuAccount.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/tms/!svn/ver/158/demo/public/src/main/resources/modules/student/hibernate-conf/StuAccount.hbm.xml
+END

@@ -1,0 +1,198 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8" %>
+<%@ include file="/common/tagslib.jsp" %>
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <%@ include file="/common/header.jsp" %>
+        <script type="text/javascript">
+            var treeObj;
+            
+            $(document).ready(function(){
+                treeObj = window.parent.treeObj;
+            });
+            
+            /**
+             * 功能：添加机构
+             * @param {Object} id
+             */
+            function addBiOrgan(id){
+                winload("${path}/main/biOrgan/add/view.do?id=" + id);
+                parent.initOrganTree();
+            }
+            
+            /**
+             * 功能：更新机构
+             * @param {Object} id
+             */
+            function updateBiOrgan(id){
+                winload("${path}/main/biOrgan/update/view.do?id=" + id);
+                parent.initOrganTree();
+            }
+            
+            /**
+             * 功能：删除机构
+             * @param {Object} id
+             */
+            function delBiOrgan(id){
+                var node = treeObj.getSelectedNodes()[0];
+                if (node.isParent) {
+                    alert("不能删除，该机构存在下级机构。请先删除其下级机构");
+                    return;
+                }
+                
+                if (confirm("确认要删除吗?")) {
+                    winload("${path}/main/biOrgan/delete.do?id=" + id);
+                    parent.initOrganTree();
+                }
+            }
+            
+            function delJobEmployee(id){
+                if (confirm("确认要删除吗?")) {
+                    winload("${path}/main/biOrgan/addRole/delete.do?id=" + id);
+                    parent.initOrganTree();
+                }
+            }
+            
+            function addUserRole(id){
+                winload("${path}/main/biOrgan/addRole/view.do?id=" + id);
+            }
+        </script>
+    </head>
+    <body style="background:white; min-width:800px;">
+        <input type="hidden" id="idHid" value="${biMenu.id}" />
+        <div id="frame-div" class="width-p100">
+        <div class="title">
+            <table class="title-tb" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td class="td-left">
+                    </td>
+                    <td class="td-title">
+                        <fmt:message key="biOrgan.table_title" /><fmt:message key="btn.view"/>
+                    </td>
+                    <td class="td-btn">
+                        <a class="btn2 btn-small" href="javaScript:addBiOrgan('${biOrgan.id}')"><fmt:message key="btn.tree.addnext"/></a>
+						<a class="btn2 btn-small" href="javaScript:updateBiOrgan('${biOrgan.id}')"><fmt:message key="btn.edit"/></a>
+						<a class="btn2 btn-small" href="javaScript:delBiOrgan('${biOrgan.id}')">删除</a>
+						<a class="btn2 btn-small" href="javaScript:addUserRole('${biOrgan.id}')">添加人员</a>
+                    </td>
+                    <td class="td-right">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="margin-lr-1 main-page-40 over-flow-x-hidden">
+            <table class="add-tb">
+                <tr>
+                    <td class="td-title" colspan="4">
+                        <font size=2 color="black">
+                            <i class="icon icon-chevron-down"></i>
+                            <strong>组织机构信息</strong>&nbsp;&nbsp;&nbsp; 
+                        </font>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="ltd4">
+                        <fmt:message key="biOrgan.name" />:
+                    </td>
+                    <td class="rtd4">
+                        ${biOrgan.name}
+                    </td>
+                    <td class="ltd4">
+                        <fmt:message key="biOrgan.preId" />:
+                    </td>
+                    <td class="rtd4">
+                        ${preBiOrgan.name}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="ltd4">
+                        <fmt:message key="biOrgan.typeCode" />:
+                    </td>
+                    <td class="rtd4">
+                    	<c:if test="${biOrgan.typeCode=='ZB'}">总部</c:if>
+                    	<c:if test="${biOrgan.typeCode=='FXQ'}">分区</c:if>
+                    	<c:if test="${biOrgan.typeCode=='XQ'}">教学点</c:if>
+                    	<c:if test="${biOrgan.typeCode=='BM'}">部门</c:if>
+                    </td>
+                   	<td class="ltd4" >
+						<fmt:message key="biOrgan.memo" />
+					</td>
+					<td class="rtd4">
+						 ${biOrgan.memo}
+					</td>
+                </tr>
+				<c:if test="${biOrgan.typeCode=='XQ'}">
+					<tr>
+						<td class="ltd4" >
+							<fmt:message key="biOrgan.address" /></td>
+						<td class="rtd4">
+							${biOrgan.address}
+						</td>
+						<td class="ltd4" >
+							<fmt:message key="biOrgan.tel" /></td>
+						<td class="rtd4">
+							${biOrgan.tel}
+						</td>
+					</tr>
+					<tr>
+						<td class="ltd4" >
+							<fmt:message key="biOrgan.preStr" />
+						</td>
+						<td class="rtd4">
+							${biOrgan.preStr}
+						</td>
+						<td class="ltd4" >
+						</td>
+						<td class="rtd4">
+						</td>
+					</tr>
+				</c:if>
+                <tr>
+                    <td class="td-title" colspan="4">
+                        <font size=2 color="black">
+                            <i class=" icon-chevron-down"></i>
+                            <strong>机构岗位人员</strong>&nbsp;&nbsp;&nbsp; 
+                        </font>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="rtd4" colspan="4">
+                        <div class="margin-lr-1">
+                        	<c:if test='${fn:length(userRoleList)<1}'>
+                                <div class="no-data-div">
+                                   	 该机构没有添加任何岗位和人员
+                                </div>
+                            </c:if>
+                            <table class="list-tb width-p100">
+                                <c:if test='${fn:length(userRoleList)>0}'>
+                                    <tr>
+                                        <th class="tb-left-bg"></th>
+                                        <th><fmt:message key="biEmployee.cnName" /></th>
+                                        <th><fmt:message key="biRole.table_title" /></th>
+										<th>可查看数据</th>
+										<th>授权时间</th>
+										<th>授权人</th>
+                                        <th><fmt:message key="list.columns.do" /></th>
+                                    </tr>
+                                    <c:forEach var="item" items='${userRoleList}' varStatus="s">
+                                        <tr>
+                                            <td>${s.index+1}</td>
+                                            <td>${item.biUserInfo.userName}</td>
+                                            <td>${item.biRole.name}</td>
+											<td>${item.rightBiOrgan.name} </td>
+											<td>${item.createDateString} </td>
+											<td>${item.createUser.cnName} </td>
+                                            <td>
+												<a href="javascript:delJobEmployee('${item.id}');"><i class="icon-trash"></i><fmt:message key="btn.del"/></a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </c:if>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>

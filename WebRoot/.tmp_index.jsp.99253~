@@ -1,0 +1,246 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+
+<% 
+
+	request.setAttribute("path",request.getContextPath());
+	String path = request.getContextPath();
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>BUG管理系统V1.0</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-store" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+	<link rel="stylesheet" type="text/css" href="login.css">
+	
+	
+<head>
+        <title>用户登录-淘狗网</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+        <link href="login.css" type="text/css" rel="stylesheet" />
+        <style type="text/css">
+            *:focus {
+                outline: none
+            }
+            
+            #conright {
+                background: #fcfcfc;
+                border-bottom: 4px solid #f9f9f9;
+                padding-bottom: 0
+            }
+            
+            .scrool-bg {
+                border: 1px solid #ddd;
+                background: none;
+                border-top: 2px solid #e66a34;
+                width: 275px;
+                padding-top: 25px;
+                overflow: hidden
+            }
+            
+            .logintit {
+                background: #fffdcc;
+                border: 1px solid #f2e2ad;
+                padding: 5px 10px;
+                line-height: 22px;
+                overflow: hidden
+            }
+            
+            .logintit .red {
+                color: #f23f0f
+            }
+            
+            .logintit input, .logintit label {
+                margin: 0;
+                cursor: pointer;
+                vertical-align: middle;
+                display: inline-block
+            }
+            
+            .logintit label {
+                padding-left: 6px;
+                _margin-top: 3px
+            }
+            
+            #scrool1 {
+                margin-left: 20px
+            }
+            
+            #conleft {
+                background: url(login-2012218.jpg) no-repeat;
+            }
+            
+            .logpic {
+                width: 50px;
+                color: #666;
+                font-size: 14px;
+                float: left
+            }
+            
+            #conright .loginbox {
+                padding-bottom: 15px
+            }
+            
+            #conright .loginbox .inp {
+                width: 210px;
+                height: 22px;
+                line-height: 22px;
+                border: 1px solid #ddd;
+                float: left;
+                margin: 0;
+                padding: 8px 0;
+                padding-left: 10px;
+                background: url(loginpbg.gif) repeat-x 0 0 #fff
+            }
+            
+            #conright .loginbox #validatecode {
+                width: 60px;
+                margin-right: 3px;
+                _margin-right: 0;
+                padding-top: 4px;
+                padding-bottom: 4px;
+                float: inherit;
+                *margin-top: 3px;
+                _margin-top:
+                0
+            }
+            
+            #conright .loginbox #validatetr td { *padding-top:
+                12px;
+                _padding-top:
+                8px
+            }
+            
+            #conright .loginbox input.wrong_color {
+                border: 1px solid #a7c0f1;
+                height: 22px;
+                background-color: #fff
+            }
+            
+            #conright .loginbox input.action_color {
+                border: 1px solid #a7c0f1;
+                height: 22px;
+                background-color: #fff
+            }
+            
+            #conright .loginbox .logpic.wrong_color, #conright .loginbox .logpic.action_color {
+                background-color: #fff;
+                border: 1px solid #a7c0f1;
+                height: 38px;
+                border-right: none
+            }
+            
+            #conright .loginbox input.pw, #conright .loginbox input.pw_wc {
+                background: url(passwordbg.png?20120814) no-repeat 0 0
+            }
+            
+            #conright .mid {
+                background: none;
+                border: none;
+                color: #f23f0f;
+                height: 21px;
+                line-height: 21px;
+                padding: 0 10px 0 51px;
+                width: 235px;
+                position: static;
+            }
+            
+            #conright .mid .conn {
+                line-height: 20px;
+                line-height: 22px 9;
+                _line-height: 20px;
+                overflow: hidden
+            }
+            
+            .loginbox table td {
+                padding: 4px 0
+            }
+            
+            #passwordtr td {
+                padding-bottom: 0;
+                *padding-bottom: 5px;
+                _padding-bottom:
+                0
+            }
+            
+            .link-login {
+                border-top: 1px solid #dfdfdf;
+                padding-top: 15px
+            }
+        </style>
+    </head>
+    <body>
+        <div id="login-header" class="win900">
+            <a href="/" id="logo" style="left:20px;"><img src="logo1.jpg"></a>
+            <div id="cityname" class="loginname" style="left:208px;">
+                <span>用户登录</span>
+            </div>
+            <div id="logintext" style="right:-10px;">
+                <a href="/">返回首页</a>>
+            </div>
+        </div>
+        <div class="cb win900">
+            <div id="conleft">
+                <div id="2001">
+                </div>
+            </div>
+            <div id="conright">
+                <div class="scrool-bg">
+                    <form method="post" id="login_form">
+                        <div class="loginbox">
+                            <div id="tipDiv">
+                            </div>
+                            <table>
+                                <tr id="usernametr">
+                                    <td>
+                                        用户名: 
+                                    </td>
+                                    <td>
+                                        <input type="text" name="user_name" class="text width5" />
+                                    </td>
+                                </tr>
+                                <tr id="passwordtr">
+                                    <td>
+                                        密&nbsp;&nbsp;&nbsp;码: 
+                                    </td>
+                                    <td>
+                                        <input type="password" name="password" class="text width5" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td style="padding: 0pt;">
+                                        <input type="hidden" name="ret_url" value="http%3A%2F%2Fwww.dog126.com%2F"><input type="checkbox" style="vertical-align: middle;" id="coks" value="on" name="remember" />
+                                        <label class="logintip" for="coks">
+                                            下次自动登录 (公共场所慎用)
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <span class="butt" style="line-height:34px;"><input type="submit" name="btnSubmit" value="登录" class="btns" accesskey="l" id="btnSubmit" /></span><span class="reg-a"><a href="index.php?app=member&act=register">免费注册</a>|<a href="index.php?app=find_password">找回密码</a></span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="c">
+                    </div>
+                </div>
+                <div id="footer" class="win900">
+                    <p>
+                    </p>
+                </div>
+                </form>
+            </div>
+            </body>
+        </html>

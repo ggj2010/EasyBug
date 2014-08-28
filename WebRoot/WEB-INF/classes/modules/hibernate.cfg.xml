@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+<session-factory>
+	<property name="hibernate.connection.autocommit">true</property>
+	<property name="hibernate.show_sql">false</property>
+	<property name="format_sql">false</property>
+		<!-- 基础维护-->
+	<mapping resource="modules/baseinfo/hibernate-conf/BiUserInfo.hbm.xml" />
+	<mapping resource="modules/baseinfo/hibernate-conf/BiEmail.hbm.xml" />
+	<mapping resource="modules/baseinfo/hibernate-conf/BiRole.hbm.xml" />
+	<mapping resource="modules/baseinfo/hibernate-conf/BiMenu.hbm.xml" />
+	<mapping resource="modules/baseinfo/hibernate-conf/BiRoleMenu.hbm.xml" />
+	<mapping resource="modules/baseinfo/hibernate-conf/BiUserLog.hbm.xml" />
+	<mapping resource="modules/baseinfo/hibernate-conf/BiWebApp.hbm.xml" />
+	
+	
+	<!--bug部分-->
+	<mapping resource="modules/bug/hibernate-conf/BugContent.hbm.xml" />
+
+	<mapping resource="modules/bug/hibernate-conf/BugContentProgress.hbm.xml" />
+		
+	<!--项目部分	-->
+	
+	<mapping resource="modules/project/hibernate-conf/ProjectModule.hbm.xml" />
+
+	<mapping resource="modules/project/hibernate-conf/Project.hbm.xml" />
+	
+	<mapping resource="modules/project/hibernate-conf/ProjectUser.hbm.xml" />
+	<mapping resource="modules/project/hibernate-conf/ProjectVersion.hbm.xml" />
+	
+	<!--备份部分-->
+		<mapping resource="modules/backup/hibernate-conf/BackUp.hbm.xml" />
+</session-factory>
+</hibernate-configuration>

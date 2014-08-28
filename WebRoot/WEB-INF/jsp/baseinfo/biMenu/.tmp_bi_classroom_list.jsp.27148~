@@ -1,0 +1,129 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ include file="/common/tagslib.jsp" %>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!--
+ 模块名：	module查询列表页面
+ 说明：		module查询列表页面
+ 编写者：     	<author>
+ 编写日期：	<2012/5/20>
+ 修改信息：
+-->
+<html>
+  <head>
+	<%@ include file="/common/header.jsp" %>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#biOrganSelect').val("${biClassRoom.biOrgan.id}");
+			 autoHeight($('#autoHeightDiv'),296);
+		});
+		
+		function doQuery(){
+			$('#form1').submit();
+		}
+		
+		function update(id){
+			winload("${path}/main/biClassRoom/update/view.do?id="+id);
+		}
+		
+		function del(id){
+			if(confirm("确认删除")){
+				winload("${path}/main/biClassRoom/delete.do?id="+id);
+			}
+		}
+	</script>
+</head>
+
+<body>
+	<div id="main-div" class="width-p100">
+        <t:Top></t:Top>
+        <div class="content main-page-190">
+            <div class="title">
+                <table class="title-tb" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td class="td-left">
+                        </td>
+                        <td class="td-title">
+                           	<fmt:message key="biClassRoom.table_title" /><fmt:message key="btn.search" />
+                        </td>
+                        <td class="td-btn">
+                            <a class="btn2 btn-small" href="${path}/main/biClassRoom/add/view.do"><fmt:message key="btn.add"/></a>
+                        </td>
+                        <td class="td-right">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+			<div class="margin-lr-1">
+				<table class="search-tb width-p100">
+	                <form id="form1" action="${path}/main/biClassRoom/list.do"  method="get">
+	                    <tr>
+	                    	<td class="left"><i class="icon icon-play"></i>查询选项</td>
+							<td class="center">
+								<table class="search-form-tb">
+									<tr>
+										<td class="ltd2">
+											<fmt:message key="biClassRoom.biOrgan"/>
+										</td>
+										<td class="rtd2">
+											<select id="biOrganSelect" name="biOrgan.id" class="required width-p60">
+												<option value="">--全部--</option>
+				                                <c:forEach var="item" items='${biOrganList}' varStatus="s">
+				                                    <option value="${item.id}">${item.name}</option>
+				                                </c:forEach>
+				                            </select>
+										</td>
+									</tr>
+								</table>
+							</td>
+							<td class="td-btn">
+								<a class="btn1 btn-small" href="javaScript:doQuery()"><fmt:message key="btn.search"/></a>
+							</td>
+	                    </tr>
+					</form>
+	            </table>
+				<div id="autoHeightDiv" class="over-flow-x-hidden">
+					<c:if test="${pagedData.totalPageCount<1}">
+						<div class="no-data-div"><fmt:message key="msg.no_data" /></div>
+					</c:if>
+					<c:if test="${pagedData.totalPageCount>0}">
+						<table class="list-tb" width="100%">
+							<thead>
+								<tr>
+									<th></th>
+									<th><fmt:message key="biClassRoom.name" /></th>
+									<th><fmt:message key="biClassRoom.stuNum" /></th>
+									<th><fmt:message key="biClassRoom.maxNum" /></th>
+									<th><fmt:message key="biClassRoom.area" /></th>
+									<th><fmt:message key="biClassRoom.biOrgan" /></th>
+									<th><fmt:message key="biClassRoom.memo" /></th>
+									<th><fmt:message key="list.columns.do" /></th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="item" items='${pagedData.result}' varStatus="s">
+									<tr>
+										<td class="tb-left-bg" style="text-align: center">${pagedata.start+s.index+1}</td>
+										<td class="width-p10">${item.name}</td>
+										<td class="width-p10">${item.stuNum}</td>
+										<td class="width-p10">${item.maxNum}</td>
+										<td class="width-p10">${item.area}</td>
+										<td class="width-p20">${item.biOrganName}</td>
+										<td class="width-p20">${item.memo}</td>
+										<td class="width-p20">
+											<a class="btn2 btn-small" href="javascript:update('${item.id}');"><fmt:message key="btn.edit"/></a>  
+											<a class="btn2 btn-small" href="javascript:del('${item.id}');"><fmt:message key="btn.del"/></a>
+										</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+			 		</table>
+	  				
+					</c:if>
+				</div>
+				<t:PageBar pageUrl="${path}/main/biClassRoom/list.do" pageAttrKey="pagedData"/>
+			</div>
+  		</div>
+  	<t:Footer></t:Footer>
+	</div>
+</body>
+</html>
